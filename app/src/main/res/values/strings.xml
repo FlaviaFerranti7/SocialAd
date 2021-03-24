@@ -7,6 +7,6 @@
     <string name="confirm_psw">Confirm Password</string>
     <string name="register">Create Account</string>
     <string name="login">Log in</string>
-    <string name="link_register" tools:ignore="StringEscaping">Don't have an account? Register now</string>
+    <string name="link_register">Do not have an account? Register now</string>
     <string name="oAuth">or Log in with:</string>
 </resources>

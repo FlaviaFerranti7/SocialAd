@@ -13,7 +13,7 @@
         android:layout_width="@dimen/image"
         android:layout_height="@dimen/image"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@android:dimen/app_icon_size"
+        android:layout_marginTop="@dimen/distance"
         app:srcCompat="@drawable/logo4" />
 
     <EditText
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/login_logo_img"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@android:dimen/app_icon_size"
+        android:layout_marginTop="@dimen/distance"
         android:background="@drawable/inputs"
         android:drawableLeft="@drawable/email"
         android:ems="10"
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/login_email_field"
-        android:layout_marginTop="@android:dimen/app_icon_size"
+        android:layout_marginTop="@dimen/distance"
         android:ems="10"
         android:hint="@string/psw"
         android:inputType="textPassword"
@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/login_psw_field"
-        android:layout_marginTop="@android:dimen/app_icon_size"
+        android:layout_marginTop="@dimen/distance"
         android:background="@drawable/button"
         android:padding="@dimen/btn"
         android:text="@string/login"
