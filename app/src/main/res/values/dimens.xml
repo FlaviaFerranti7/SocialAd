@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="image">150dp</dimen>
+    <dimen name="text_field">15dp</dimen>
+    <dimen name="text">16sp</dimen>
+    <dimen name="btn">15dp</dimen>
+    <dimen name="btn_text">20sp</dimen>
+    <dimen name="border">2dp</dimen>
+    <dimen name="login_logo">80dp</dimen>
+    <dimen name="margin_logo">18dp</dimen>
+</resources>

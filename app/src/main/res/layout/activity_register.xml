@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login"
+    tools:context=".RegisterActivity">
+
+    <ImageView
+        android:id="@+id/register_logo_img"
+        android:layout_width="@dimen/image"
+        android:layout_height="@dimen/image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@android:dimen/app_icon_size"
+        app:srcCompat="@drawable/logo4" />
+
+    <EditText
+        android:id="@+id/register_email_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register_logo_img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@android:dimen/app_icon_size"
+        android:ems="10"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/inputs"
+        android:padding="@dimen/text_field"
+        android:drawableLeft="@drawable/email"/>
+
+    <EditText
+        android:id="@+id/register_psw_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register_email_field"
+        android:layout_marginTop="@android:dimen/app_icon_size"
+        android:ems="10"
+        android:hint="@string/psw"
+        android:inputType="textPassword"
+        android:background="@drawable/inputs"
+        android:padding="@dimen/text_field"
+        android:drawableLeft="@drawable/password"/>
+
+    <EditText
+        android:id="@+id/register_confirm_psw_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register_psw_field"
+        android:layout_marginTop="@android:dimen/app_icon_size"
+        android:ems="10"
+        android:hint="@string/confirm_psw"
+        android:inputType="textPassword"
+        android:background="@drawable/inputs"
+        android:padding="@dimen/text_field"
+        android:drawableLeft="@drawable/password"/>
+
+    <Button
+        android:id="@+id/register_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register_confirm_psw_field"
+        android:layout_marginTop="@android:dimen/app_icon_size"
+        android:background="@drawable/button"
+        android:padding="@dimen/btn"
+        android:text="@string/register"
+        android:textSize="@dimen/btn_text" />
+</RelativeLayout>

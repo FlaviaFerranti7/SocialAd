@@ -1,5 +1,12 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">SocialAd</string>
     <string name="drawer_open">Drawer open</string>
     <string name="drawer_close">Drawer close</string>
+    <string name="email">Email</string>
+    <string name="psw">Password</string>
+    <string name="confirm_psw">Confirm Password</string>
+    <string name="register">Create Account</string>
+    <string name="login">Log in</string>
+    <string name="link_register" tools:ignore="StringEscaping">Don't have an account? Register now</string>
+    <string name="oAuth">or Log in with:</string>
 </resources>
