@@ -22,7 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/login_logo_img"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/box_border"
         android:layout_marginTop="@dimen/distance"
+        android:layout_marginRight="@dimen/box_border"
         android:background="@drawable/inputs"
         android:drawableLeft="@drawable/email"
         android:ems="10"
@@ -35,13 +37,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/login_email_field"
+        android:layout_marginLeft="@dimen/box_border"
         android:layout_marginTop="@dimen/distance"
+        android:layout_marginRight="@dimen/box_border"
+        android:background="@drawable/inputs"
+        android:drawableLeft="@drawable/password"
         android:ems="10"
         android:hint="@string/psw"
         android:inputType="textPassword"
-        android:background="@drawable/inputs"
-        android:padding="@dimen/text_field"
-        android:drawableLeft="@drawable/password"/>
+        android:padding="@dimen/text_field" />
 
 
     <Button
@@ -49,7 +53,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/login_psw_field"
+        android:layout_marginLeft="@dimen/box_border"
         android:layout_marginTop="@dimen/distance"
+        android:layout_marginRight="@dimen/box_border"
         android:background="@drawable/button"
         android:padding="@dimen/btn"
         android:text="@string/login"

@@ -1,76 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login"
-    tools:context=".RegisterActivity">
+    tools:context=".SetupActivity">
 
-    <ImageView
-        android:id="@+id/register_logo_img"
-        android:layout_width="@dimen/image"
-        android:layout_height="@dimen/image"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/setup_profile_img"
+        android:layout_width="@dimen/img_profile"
+        android:layout_height="@dimen/img_profile"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/distance"
-        app:srcCompat="@drawable/logo4" />
+        android:src="@drawable/profile_img" />
 
     <EditText
-        android:id="@+id/register_email_field"
+        android:id="@+id/setup_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/register_logo_img"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@id/setup_profile_img"
         android:layout_marginLeft="@dimen/box_border"
         android:layout_marginTop="@dimen/distance"
         android:layout_marginRight="@dimen/box_border"
         android:background="@drawable/inputs"
-        android:drawableLeft="@drawable/email"
+        android:drawableLeft="@drawable/create"
         android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
+        android:gravity="start|top"
+        android:hint="@string/username"
+        android:inputType="textMultiLine"
         android:padding="@dimen/text_field" />
 
     <EditText
-        android:id="@+id/register_psw_field"
+        android:id="@+id/setup_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/register_email_field"
+        android:layout_below="@id/setup_username"
         android:layout_marginLeft="@dimen/box_border"
         android:layout_marginTop="@dimen/distance"
         android:layout_marginRight="@dimen/box_border"
         android:background="@drawable/inputs"
-        android:drawableLeft="@drawable/password"
+        android:drawableLeft="@drawable/user"
         android:ems="10"
-        android:hint="@string/psw"
-        android:inputType="textPassword"
+        android:gravity="start|top"
+        android:hint="@string/fullname"
+        android:inputType="textMultiLine"
         android:padding="@dimen/text_field" />
 
     <EditText
-        android:id="@+id/register_confirm_psw_field"
+        android:id="@+id/setup_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/register_psw_field"
+        android:layout_below="@id/setup_name"
         android:layout_marginLeft="@dimen/box_border"
         android:layout_marginTop="@dimen/distance"
         android:layout_marginRight="@dimen/box_border"
         android:background="@drawable/inputs"
-        android:drawableLeft="@drawable/password"
+        android:drawableLeft="@drawable/location"
         android:ems="10"
-        android:hint="@string/confirm_psw"
-        android:inputType="textPassword"
+        android:gravity="start|top"
+        android:hint="@string/location"
+        android:inputType="textMultiLine"
         android:padding="@dimen/text_field" />
 
     <Button
-        android:id="@+id/register_button"
-        android:layout_width="match_parent"
+        android:id="@+id/setup_save_btn"
+        android:layout_width="@dimen/btn_width"
         android:layout_height="wrap_content"
-        android:layout_below="@id/register_confirm_psw_field"
-        android:layout_marginLeft="@dimen/box_border"
+        android:layout_below="@id/setup_location"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/distance"
-        android:layout_marginRight="@dimen/box_border"
         android:background="@drawable/button"
         android:padding="@dimen/btn"
-        android:text="@string/register"
+        android:text="@string/save"
         android:textSize="@dimen/btn_text" />
+
 </RelativeLayout>

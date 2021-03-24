@@ -9,4 +9,8 @@
     <string name="login">Log in</string>
     <string name="link_register">Do not have an account? Register now</string>
     <string name="oAuth">or Log in with:</string>
+    <string name="username">Username</string>
+    <string name="fullname">Full name</string>
+    <string name="location">City</string>
+    <string name="save">Save</string>
 </resources>
