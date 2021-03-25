@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:id="@+id/login_layout">
 
     <ImageView
         android:id="@+id/login_logo_img"
@@ -32,6 +33,7 @@
         android:inputType="textEmailAddress"
         android:padding="@dimen/text_field" />
 
+
     <EditText
         android:id="@+id/login_psw_field"
         android:layout_width="match_parent"
@@ -41,12 +43,11 @@
         android:layout_marginTop="@dimen/distance"
         android:layout_marginRight="@dimen/box_border"
         android:background="@drawable/inputs"
-        android:drawableLeft="@drawable/password"
+        android:drawableStart="@drawable/password"
         android:ems="10"
         android:hint="@string/psw"
         android:inputType="textPassword"
         android:padding="@dimen/text_field" />
-
 
     <Button
         android:id="@+id/login_button"

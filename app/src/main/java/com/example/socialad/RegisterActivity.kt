@@ -5,9 +5,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.widget.ProgressBar
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
@@ -18,6 +18,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        Utils.setupUI(register_layout,this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -28,10 +29,18 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        var currentUser : FirebaseUser? = mAuth.currentUser;
+        if (currentUser != null){
+            SendUserToMainActivity();
+        }
+    }
+
     private fun CreateNewAccount() {
         var email : String = register_email_field.text.toString();
         var password : String = register_psw_field.text.toString();
-        var confirmPassword : String = register_confirm_psw_field.text.toString()
+        var confirmPassword : String = register_confirm_psw_field.text.toString();
 
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Please write your email", Toast.LENGTH_SHORT).show();
@@ -66,6 +75,13 @@ class RegisterActivity : AppCompatActivity() {
                         }
                     }
         }
+    }
+
+    private fun SendUserToMainActivity() {
+        val mainIntent = Intent(this, MainActivity::class.java);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
     }
 
     private fun SendUserToSetupActivity() {

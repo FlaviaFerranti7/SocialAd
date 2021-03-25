@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    android:id="@+id/register_layout">
 
     <ImageView
         android:id="@+id/register_logo_img"
@@ -31,6 +32,7 @@
         android:inputType="textEmailAddress"
         android:padding="@dimen/text_field" />
 
+
     <EditText
         android:id="@+id/register_psw_field"
         android:layout_width="match_parent"
@@ -40,11 +42,12 @@
         android:layout_marginTop="@dimen/distance"
         android:layout_marginRight="@dimen/box_border"
         android:background="@drawable/inputs"
-        android:drawableLeft="@drawable/password"
+        android:drawableStart="@drawable/password"
         android:ems="10"
         android:hint="@string/psw"
         android:inputType="textPassword"
         android:padding="@dimen/text_field" />
+
 
     <EditText
         android:id="@+id/register_confirm_psw_field"
@@ -55,11 +58,12 @@
         android:layout_marginTop="@dimen/distance"
         android:layout_marginRight="@dimen/box_border"
         android:background="@drawable/inputs"
-        android:drawableLeft="@drawable/password"
+        android:drawableStart="@drawable/password"
         android:ems="10"
         android:hint="@string/confirm_psw"
         android:inputType="textPassword"
         android:padding="@dimen/text_field" />
+
 
     <Button
         android:id="@+id/register_button"

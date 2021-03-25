@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -13,12 +14,14 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle;
     private lateinit var mAuth: FirebaseAuth;
+    private lateinit var usersRef: DatabaseReference;
 
     @SuppressLint("RestrictedApi")
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -27,14 +30,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mAuth = FirebaseAuth.getInstance();
+        usersRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users");
 
         val mToolbar : Toolbar = main_page_toolbar as Toolbar
         setSupportActionBar(mToolbar);
         supportActionBar?.title = "Home";
 
         val headerView: View = navigation_view.inflateHeaderView(R.layout.navigation_header);
-        actionBarDrawerToggle = ActionBarDrawerToggle(this, drawer_layout, R.string.drawer_open, R.string.drawer_close);
-        drawer_layout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle = ActionBarDrawerToggle(this, main_layout, R.string.drawer_open, R.string.drawer_close);
+        main_layout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
 
@@ -82,6 +86,32 @@ class MainActivity : AppCompatActivity() {
         if (currentUser == null){
             SendUserToLoginActivity();
         }
+        else{
+            CheckUserExistance();
+        }
+    }
+
+    private fun CheckUserExistance() {
+        val current_user_id : String = mAuth.currentUser!!.uid;
+        Log.d(".MainActivity", "ci entro")
+
+        usersRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot){
+                if(!dataSnapshot.hasChild(current_user_id)){        //user authenticated but not present in database
+                    SendUserToSetupActivity();
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        });
+    }
+
+    private fun SendUserToSetupActivity() {
+        val setupIntent = Intent(this, SetupActivity::class.java);
+        setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(setupIntent);
+        finish();
     }
 
     private fun SendUserToLoginActivity() {
