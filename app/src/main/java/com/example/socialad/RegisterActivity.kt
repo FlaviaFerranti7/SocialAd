@@ -46,18 +46,21 @@ class RegisterActivity : AppCompatActivity() {
             Toast.makeText(this, "Password and confirm password should match", Toast.LENGTH_SHORT).show();
         }
         else{
-            
+            loadingBar.setTitle("Creating new Account");
+            loadingBar.setMessage("Please wait while we create your account");
+            loadingBar.show();
+            loadingBar.setCanceledOnTouchOutside(true);
+
             mAuth.createUserWithEmailAndPassword(email,password)
                     .addOnCompleteListener {
                         if(it.isSuccessful){
-                            loadingBar.setTitle("Creating new Account");
-                            loadingBar.setMessage("Please wait while we create your account");
-                            loadingBar.show();
-                            loadingBar.setCanceledOnTouchOutside(true);
+                            loadingBar.dismiss();
                             Toast.makeText(this@RegisterActivity, "You are successfully registered", Toast.LENGTH_SHORT).show();
                             SendUserToSetupActivity();
+
                         }
                         else{
+                            loadingBar.dismiss();
                             var message = it.exception?.message;
                             Toast.makeText(this, "Error occurred: " + message, Toast.LENGTH_SHORT).show();
                         }
