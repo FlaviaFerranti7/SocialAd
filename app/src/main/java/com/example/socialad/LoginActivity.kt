@@ -17,7 +17,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun SendUserToRegisterActivity() {
-        val loginIntent = Intent(this, RegisterActivity::class.java);
-        startActivity(loginIntent);
+        val registerIntent = Intent(this, RegisterActivity::class.java);
+        startActivity(registerIntent);
     }
 }

@@ -61,7 +61,8 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_logout -> {
-                    Toast.makeText(this, "LOGOUT", Toast.LENGTH_SHORT).show();
+                    mAuth.signOut();
+                    SendUserToLoginActivity();
                     true
                 }
                 R.id.nav_post -> {
