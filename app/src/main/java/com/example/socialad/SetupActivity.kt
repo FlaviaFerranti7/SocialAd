@@ -35,6 +35,9 @@ class SetupActivity : AppCompatActivity() {
         setup_save_btn.setOnClickListener {
             SaveAccountSetUpInformation();
         }
+        setup_profile_img.setOnClickListener {
+            SendUserToChooseAvatarActivity();
+        }
     }
 
     private fun SaveAccountSetUpInformation() {
@@ -82,6 +85,12 @@ class SetupActivity : AppCompatActivity() {
         val mainIntent = Intent(this, MainActivity::class.java);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
+        finish();
+    }
+    private fun SendUserToChooseAvatarActivity() {
+        val avatarIntent = Intent(this, ChooseAvatarActivity::class.java);
+        avatarIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(avatarIntent);
         finish();
     }
 }
