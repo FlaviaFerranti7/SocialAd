@@ -1,10 +1,7 @@
 package com.example.socialad
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.*
 import android.view.MotionEvent
 import android.view.View
 
@@ -12,6 +9,8 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
 
     var dx = 0f //Distance among vertical lines
     var dy = 0f //Distance among horizontal lines
+
+    var radius = 100F //grandezza avatar
 
     val vLines = 3f
     val hLines = 3f
@@ -35,6 +34,12 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
         color= Color.RED
         strokeWidth=2f
         textSize=50f
+    }
+
+    val basePaint = Paint().apply {
+        style = Paint.Style.FILL_AND_STROKE
+        strokeWidth = 2f
+        textSize = 50f
     }
 
     init {
@@ -113,16 +118,56 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
                 blackPaint)
         }
 
-        /*canvas.drawCircle((width /2).toFloat(), (height /2).toFloat(), 100F, mPaint);
-        canvas.drawRect(
-            (left +(right - left)/3).toFloat(),
-            (top +(bottom - top)/3).toFloat(),
-            (right -(right - left)/3).toFloat(),
-            (bottom -(bottom - top)/3).toFloat(), mPaint);*/
+        //place Avatar
+        basePaint.setColor(Color.YELLOW);
+        //canvas.drawRect(width/2 - radius, (height/1.6 - (radius + radius/2)).toFloat(), width/2 + radius, (height /1.6).toFloat(), basePaint); //hair square
+        //canvas.drawRect(width/2 - radius, (height/1.6 - (radius + radius/4)).toFloat(), width/2 + radius, (height /1.6 + 2*radius).toFloat(), basePaint); //hair rectangle
+        drawTriangle(canvas, basePaint, width/2, (height/1.6 - radius).toInt(), (2*radius).toInt()); // hair triangle
+
+        basePaint.setColor(Color.MAGENTA);
+        canvas.drawCircle((width /2).toFloat(), (height /1.6).toFloat(), radius, basePaint);    //face
+        basePaint.setColor(Color.BLACK);
+        drawRhombus(canvas, basePaint, (width /2), (height /1.6 + radius/4).toInt(), (radius/8).toInt());  //noise
+        canvas.drawCircle(width /2- radius/2, (height /1.6 - radius/4).toFloat(), radius/12, basePaint);
+        canvas.drawCircle(width /2+ radius/2, (height /1.6 - radius/4).toFloat(), radius/12, basePaint);
+
+        //place Save button
+        canvas.drawRect((2.5*dx).toFloat(), (7.5*dy).toFloat(), (2.5*dx+dx).toFloat(), (7.5*dy+dy).toFloat(), mPaint);
+        blackPaint.getTextBounds("Save",0,4 ,rr)
+        var offy = (rr.top - rr.bottom) / 2
+        var offx = (rr.right - rr.left) / 2
+        redPaint.setColor(Color.WHITE);
+        canvas.drawText("Save",
+                (2.5*dx).toFloat() +dx/2-offx,
+                (7.5*dy).toFloat() +dy/2-offy,
+                redPaint);
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         return true
+    }
+
+    fun drawTriangle(canvas: Canvas, paint: Paint?, x: Int, y: Int, width: Int) {
+        val halfWidth = width / 2
+        val path = Path()
+        path.moveTo(x.toFloat(), (y - halfWidth).toFloat()) // Top
+        path.lineTo((x - halfWidth).toFloat(), (y + halfWidth).toFloat()) // Bottom left
+        path.lineTo((x + halfWidth).toFloat(), (y + halfWidth).toFloat()) // Bottom right
+        path.lineTo(x.toFloat(), (y - halfWidth).toFloat()) // Back to Top
+        path.close()
+        canvas.drawPath(path, paint!!)
+    }
+
+    fun drawRhombus(canvas: Canvas, paint: Paint?, x: Int, y: Int, width: Int) {
+        val halfWidth = width / 2
+        val path = Path()
+        path.moveTo(x.toFloat(), (y + halfWidth).toFloat()) // Top
+        path.lineTo((x - halfWidth).toFloat(), y.toFloat()) // Left
+        path.lineTo(x.toFloat(), (y - halfWidth).toFloat()) // Bottom
+        path.lineTo((x + halfWidth).toFloat(), y.toFloat()) // Right
+        path.lineTo(x.toFloat(), (y + halfWidth).toFloat()) // Back to Top
+        path.close()
+        canvas.drawPath(path, paint!!)
     }
 
 }
