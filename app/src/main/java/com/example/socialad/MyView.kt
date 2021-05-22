@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 
 class MyView(context: Context?) : View(context), View.OnTouchListener {
 
@@ -14,6 +15,13 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
 
     val vLines = 3f
     val hLines = 3f
+
+    var changeColor = false;
+    var changeHair = false;
+    var changeHColor = false;
+
+    var position = 0;
+    var lastHairSave = 5;
 
     val mPaint = Paint().apply{
         style=Paint.Style.FILL_AND_STROKE
@@ -29,15 +37,22 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
         textSize=50f
     }
 
-    val redPaint = Paint().apply {
+    val textPaint = Paint().apply {
         style=Paint.Style.FILL_AND_STROKE
-        color= Color.RED
         strokeWidth=2f
         textSize=50f
     }
 
-    val basePaint = Paint().apply {
+    val hairCPaint = Paint().apply {
         style = Paint.Style.FILL_AND_STROKE
+        color = Color.YELLOW
+        strokeWidth = 2f
+        textSize = 50f
+    }
+
+    val facePaint = Paint().apply {
+        style = Paint.Style.FILL_AND_STROKE
+        color = Color.MAGENTA
         strokeWidth = 2f
         textSize = 50f
     }
@@ -55,6 +70,7 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
         var rr= Rect()
 
         //Place texts
+        textPaint.setColor(Color.RED);
         var i = 0
         for ( t in arrayOf("Color","Hair","H-Color")){
             blackPaint.getTextBounds(t,0,t.length ,rr)
@@ -63,7 +79,7 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
             canvas.drawText(t,
                 dx/2-offx,
                 i*dy +dy/2-offy,
-                redPaint)
+                textPaint)
             i++
 
         }
@@ -119,31 +135,71 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
         }
 
         //place Avatar
-        basePaint.setColor(Color.YELLOW);
-        //canvas.drawRect(width/2 - radius, (height/1.6 - (radius + radius/2)).toFloat(), width/2 + radius, (height /1.6).toFloat(), basePaint); //hair square
-        //canvas.drawRect(width/2 - radius, (height/1.6 - (radius + radius/4)).toFloat(), width/2 + radius, (height /1.6 + 2*radius).toFloat(), basePaint); //hair rectangle
-        drawTriangle(canvas, basePaint, width/2, (height/1.6 - radius).toInt(), (2*radius).toInt()); // hair triangle
+        if(changeHColor){
+            if(position==9) hairCPaint.color = Color.YELLOW;
+            else if (position == 10) hairCPaint.color = Color.BLACK;
+            else hairCPaint.color = Color.RED
+            changeHColor = false
+        }
 
-        basePaint.setColor(Color.MAGENTA);
-        canvas.drawCircle((width /2).toFloat(), (height /1.6).toFloat(), radius, basePaint);    //face
-        basePaint.setColor(Color.BLACK);
-        drawRhombus(canvas, basePaint, (width /2), (height /1.6 + radius/4).toInt(), (radius/8).toInt());  //noise
-        canvas.drawCircle(width /2- radius/2, (height /1.6 - radius/4).toFloat(), radius/12, basePaint);
-        canvas.drawCircle(width /2+ radius/2, (height /1.6 - radius/4).toFloat(), radius/12, basePaint);
+        if(changeHair){
+            if(position==5) lastHairSave = 5
+            else if (position == 6) lastHairSave = 6
+            else lastHairSave = 7
+            changeHair = false
+        }
+        if(lastHairSave == 5) drawTriangle(canvas, hairCPaint, width/2, (height/1.6 - radius).toInt(), (2*radius).toInt()); // hair triangle
+        else if(lastHairSave == 6) canvas.drawRect(width/2 - radius, (height/1.6 - (radius + radius/2)).toFloat(), width/2 + radius, (height /1.6).toFloat(), hairCPaint); //hair square
+        else if (lastHairSave == 7) canvas.drawRect(width/2 - radius, (height/1.6 - (radius + radius/4)).toFloat(), width/2 + radius, (height /1.6 + 2*radius).toFloat(), hairCPaint); //hair rectangle
+
+        if(changeColor){
+            if(position==1) facePaint.color = Color.MAGENTA;
+            else if (position == 2) facePaint.color = Color.YELLOW;
+            else facePaint.color = Color.DKGRAY
+            changeColor = false
+        }
+        canvas.drawCircle((width /2).toFloat(), (height /1.6).toFloat(), radius, facePaint);    //face
+
+        drawRhombus(canvas, blackPaint, (width /2), (height /1.6 + radius/4).toInt(), (radius/8).toInt());  //nose
+        canvas.drawCircle(width /2- radius/2, (height /1.6 - radius/4).toFloat(), radius/12, blackPaint); //left eye
+        canvas.drawCircle(width /2+ radius/2, (height /1.6 - radius/4).toFloat(), radius/12, blackPaint); //right eye
 
         //place Save button
         canvas.drawRect((2.5*dx).toFloat(), (7.5*dy).toFloat(), (2.5*dx+dx).toFloat(), (7.5*dy+dy).toFloat(), mPaint);
         blackPaint.getTextBounds("Save",0,4 ,rr)
         var offy = (rr.top - rr.bottom) / 2
         var offx = (rr.right - rr.left) / 2
-        redPaint.setColor(Color.WHITE);
+        textPaint.setColor(Color.WHITE);
         canvas.drawText("Save",
                 (2.5*dx).toFloat() +dx/2-offx,
                 (7.5*dy).toFloat() +dy/2-offy,
-                redPaint);
+                textPaint);
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        when (event?.action) {
+            MotionEvent.ACTION_DOWN -> {
+                val x = (event.x / dx).toInt()
+                val y = (event.y / dy).toInt()
+                var n = (4* y) + x
+
+                //Toast.makeText(context, "" + n, Toast.LENGTH_SHORT).show()
+                when (n) {
+                    1, 2, 3 ->{
+                        changeColor = true; position = n
+                    }
+                    5, 6, 7 ->{
+                        changeHair = true; position = n
+                    }
+                    9, 10, 11 ->{
+                        changeHColor = true; position = n
+                    }
+                }
+
+                invalidate()
+
+            }
+        }
         return true
     }
 
