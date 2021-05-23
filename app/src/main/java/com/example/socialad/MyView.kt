@@ -1,5 +1,6 @@
 package com.example.socialad
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -7,6 +8,7 @@ import android.graphics.*
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 
 class MyView(context: Context?) : View(context), View.OnTouchListener {
@@ -50,14 +52,14 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
 
     val hairCPaint = Paint().apply {
         style = Paint.Style.FILL_AND_STROKE
-        color = Color.YELLOW
+        color = ContextCompat.getColor(context!!, R.color.h_yellow)
         strokeWidth = 2f
         textSize = 50f
     }
 
     val facePaint = Paint().apply {
         style = Paint.Style.FILL_AND_STROKE
-        color = Color.MAGENTA
+        color = ContextCompat.getColor(context!!, R.color.f_pink)
         strokeWidth = 2f
         textSize = 50f
     }
@@ -91,7 +93,7 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
 
         //place circle colors
         i = 0
-        for (t in arrayOf(Color.MAGENTA, Color.YELLOW, Color.DKGRAY)) {
+        for (t in arrayOf(ContextCompat.getColor(context, R.color.f_pink) , ContextCompat.getColor(context, R.color.f_yellow), ContextCompat.getColor(context, R.color.f_brown)) ){
             canvas.drawRect(i*dx+dx, 0f, i*dx + 2*dx, dy, Paint().apply{
                 style=Paint.Style.FILL_AND_STROKE
                 color= t
@@ -102,7 +104,7 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
 
         //place hair color
         i = 0
-        for (t in arrayOf(Color.YELLOW, Color.BLACK, Color.RED)) {
+        for (t in arrayOf(ContextCompat.getColor(context, R.color.h_yellow), ContextCompat.getColor(context, R.color.h_black), ContextCompat.getColor(context, R.color.h_red))) {
             canvas.drawRect(i*dx+dx, 2*dy, i*dx + 2*dx, 2*dy+dy, Paint().apply{
                 style=Paint.Style.FILL_AND_STROKE
                 color= t
@@ -141,9 +143,9 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
 
         //place Avatar
         if(changeHColor){
-            if(position==9){ hairCPaint.color = Color.YELLOW; lastHCSave = position;}
-            else if (position == 10){ hairCPaint.color = Color.BLACK; lastHCSave = position;}
-            else{ hairCPaint.color = Color.RED; lastHCSave = position}
+            if(position==9){ hairCPaint.color = ContextCompat.getColor(context, R.color.h_yellow); lastHCSave = position;}
+            else if (position == 10){ hairCPaint.color = ContextCompat.getColor(context, R.color.h_black); lastHCSave = position;}
+            else{ hairCPaint.color = ContextCompat.getColor(context, R.color.h_red); lastHCSave = position}
             changeHColor = false
         }
 
@@ -158,9 +160,9 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
         else if (lastHairSave == 7) canvas.drawRect(width/2 - radius, (height/1.6 - (radius + radius/4)).toFloat(), width/2 + radius, (height /1.6 + 2*radius).toFloat(), hairCPaint); //hair rectangle
 
         if(changeColor){
-            if(position==1){ facePaint.color = Color.MAGENTA; lastColorSave = position;}
-            else if (position == 2){ facePaint.color = Color.YELLOW; lastColorSave = position;}
-            else { facePaint.color = Color.DKGRAY; lastColorSave = position;}
+            if(position==1){ facePaint.color = ContextCompat.getColor(context, R.color.f_pink); lastColorSave = position;}
+            else if (position == 2){ facePaint.color = ContextCompat.getColor(context, R.color.f_yellow); lastColorSave = position;}
+            else { facePaint.color = ContextCompat.getColor(context, R.color.f_brown); lastColorSave = position;}
             changeColor = false
         }
         canvas.drawCircle((width /2).toFloat(), (height /1.6).toFloat(), radius, facePaint);    //face
@@ -200,8 +202,9 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
                         changeHColor = true; position = n
                     }
                     30, 31, 34, 35 ->{
-                        Toast.makeText(context, "" + lastColorSave + "" + lastHairSave + "" + lastHCSave, Toast.LENGTH_SHORT).show()
-                        SendUserToSetupActivity();
+                        val photo= "" + lastColorSave + "" + lastHairSave + "" + lastHCSave
+                        //Toast.makeText(context, photo, Toast.LENGTH_SHORT).show()
+                        SendUserToSetupActivity(photo);
 
                     }
                 }
@@ -236,8 +239,9 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
         canvas.drawPath(path, paint!!)
     }
 
-    private fun SendUserToSetupActivity() {
+    private fun SendUserToSetupActivity(value : String) {
         val setupIntent = Intent(context, SetupActivity::class.java);
+        setupIntent.putExtra("photo", value);
         setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(setupIntent);
     }

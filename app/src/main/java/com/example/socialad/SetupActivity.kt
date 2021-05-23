@@ -2,15 +2,16 @@ package com.example.socialad
 
 import android.app.ProgressDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.INotificationSideChannel
 import android.text.TextUtils
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_register.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_setup.*
 
 class SetupActivity : AppCompatActivity() {
@@ -19,6 +20,8 @@ class SetupActivity : AppCompatActivity() {
     private lateinit var usersRef : DatabaseReference;
     private lateinit var currentUserId : String;
     private lateinit var loadingBar : ProgressDialog;
+    private lateinit var userProfileImageRef : StorageReference;
+    private lateinit var filePath : StorageReference;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +29,44 @@ class SetupActivity : AppCompatActivity() {
 
         Utils.setupUI(setup_layout,this);
 
+        loadingBar = ProgressDialog(this)
+
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.currentUser?.uid.toString();
         usersRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users").child(currentUserId);
 
-        loadingBar = ProgressDialog(this)
+        val extras = intent.extras
+        if (extras != null) {                               //avatar has been created
+
+            val value = extras.getString("photo")
+
+            loadingBar.setTitle("Saving information");
+            loadingBar.setMessage("Please wait while we are saving your avatar");
+            loadingBar.show();
+            loadingBar.setCanceledOnTouchOutside(true);
+
+            userProfileImageRef = FirebaseStorage.getInstance().reference.child("profile Images");
+            filePath = userProfileImageRef.child(currentUserId + ".jpg");
+
+            val path = Uri.parse("android.resource://" + BuildConfig.APPLICATION_ID + "/drawable/a"+value);
+            filePath.putFile(path).addOnCompleteListener {
+                if(it.isSuccessful){
+                    Toast.makeText(this, "Profile Image correctly stored", Toast.LENGTH_SHORT).show()
+                    val downloadUrl = it.result.toString();
+                    usersRef.child("profileImage").setValue(downloadUrl).addOnCompleteListener {
+                        if(it.isSuccessful){
+                            Toast.makeText(this, "Profile Image correctly stored to firebase database", Toast.LENGTH_SHORT).show()
+                            loadingBar.dismiss();
+                        }
+                        else{
+                            val message = it.exception?.message;
+                            Toast.makeText(this, "Error occured$message", Toast.LENGTH_SHORT).show()
+                            loadingBar.dismiss();
+                        }
+                    };
+                }
+            }; //save image into firebase storage and database
+        }
 
         setup_save_btn.setOnClickListener {
             SaveAccountSetUpInformation();
