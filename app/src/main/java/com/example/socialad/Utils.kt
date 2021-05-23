@@ -2,10 +2,16 @@ package com.example.socialad
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import java.io.File
+import java.io.FileOutputStream
+
 
 object Utils {
     fun hideSoftKeyboard(activity: Activity) {

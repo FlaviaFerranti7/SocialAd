@@ -1,10 +1,13 @@
 package com.example.socialad
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.*
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 
 class MyView(context: Context?) : View(context), View.OnTouchListener {
 
@@ -22,10 +25,12 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
 
     var position = 0;
     var lastHairSave = 5;
+    var lastColorSave = 1;
+    var lastHCSave = 9;
 
     val mPaint = Paint().apply{
         style=Paint.Style.FILL_AND_STROKE
-        color= Color.parseColor("#AA0000AA")
+        color= Color.parseColor("#FF6200EE")
         textSize=100f
         strokeWidth = 30f;
     }
@@ -136,9 +141,9 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
 
         //place Avatar
         if(changeHColor){
-            if(position==9) hairCPaint.color = Color.YELLOW;
-            else if (position == 10) hairCPaint.color = Color.BLACK;
-            else hairCPaint.color = Color.RED
+            if(position==9){ hairCPaint.color = Color.YELLOW; lastHCSave = position;}
+            else if (position == 10){ hairCPaint.color = Color.BLACK; lastHCSave = position;}
+            else{ hairCPaint.color = Color.RED; lastHCSave = position}
             changeHColor = false
         }
 
@@ -153,9 +158,9 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
         else if (lastHairSave == 7) canvas.drawRect(width/2 - radius, (height/1.6 - (radius + radius/4)).toFloat(), width/2 + radius, (height /1.6 + 2*radius).toFloat(), hairCPaint); //hair rectangle
 
         if(changeColor){
-            if(position==1) facePaint.color = Color.MAGENTA;
-            else if (position == 2) facePaint.color = Color.YELLOW;
-            else facePaint.color = Color.DKGRAY
+            if(position==1){ facePaint.color = Color.MAGENTA; lastColorSave = position;}
+            else if (position == 2){ facePaint.color = Color.YELLOW; lastColorSave = position;}
+            else { facePaint.color = Color.DKGRAY; lastColorSave = position;}
             changeColor = false
         }
         canvas.drawCircle((width /2).toFloat(), (height /1.6).toFloat(), radius, facePaint);    //face
@@ -194,6 +199,11 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
                     9, 10, 11 ->{
                         changeHColor = true; position = n
                     }
+                    30, 31, 34, 35 ->{
+                        Toast.makeText(context, "" + lastColorSave + "" + lastHairSave + "" + lastHCSave, Toast.LENGTH_SHORT).show()
+                        SendUserToSetupActivity();
+
+                    }
                 }
 
                 invalidate()
@@ -224,6 +234,12 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
         path.lineTo(x.toFloat(), (y + halfWidth).toFloat()) // Back to Top
         path.close()
         canvas.drawPath(path, paint!!)
+    }
+
+    private fun SendUserToSetupActivity() {
+        val setupIntent = Intent(context, SetupActivity::class.java);
+        setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(setupIntent);
     }
 
 }
