@@ -8,10 +8,10 @@ import android.text.TextUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_setup.*
 
 class SetupActivity : AppCompatActivity() {
@@ -49,21 +49,23 @@ class SetupActivity : AppCompatActivity() {
             filePath = userProfileImageRef.child(currentUserId + ".jpg");
 
             val path = Uri.parse("android.resource://" + BuildConfig.APPLICATION_ID + "/drawable/a"+value);
-            filePath.putFile(path).addOnCompleteListener {
-                if(it.isSuccessful){
+            filePath.putFile(path).addOnCompleteListener { task ->
+                if(task.isSuccessful){
                     Toast.makeText(this, "Profile Image correctly stored", Toast.LENGTH_SHORT).show()
-                    val downloadUrl = it.result.toString();
-                    usersRef.child("profileImage").setValue(downloadUrl).addOnCompleteListener {
-                        if(it.isSuccessful){
-                            Toast.makeText(this, "Profile Image correctly stored to firebase database", Toast.LENGTH_SHORT).show()
-                            loadingBar.dismiss();
-                        }
-                        else{
-                            val message = it.exception?.message;
-                            Toast.makeText(this, "Error occured$message", Toast.LENGTH_SHORT).show()
-                            loadingBar.dismiss();
-                        }
-                    };
+                    val downloadUrl = filePath.downloadUrl.addOnSuccessListener {uri ->
+                        val u = uri.toString()
+                        usersRef.child("profileImage").setValue(u).addOnCompleteListener {
+                            if(it.isSuccessful){
+                                Toast.makeText(this, "Profile Image correctly stored to firebase database", Toast.LENGTH_SHORT).show()
+                                loadingBar.dismiss();
+                            }
+                            else{
+                                val message = it.exception?.message;
+                                Toast.makeText(this, "Error occured$message", Toast.LENGTH_SHORT).show()
+                                loadingBar.dismiss();
+                            }
+                        };
+                    }
                 }
             }; //save image into firebase storage and database
         }
@@ -74,6 +76,17 @@ class SetupActivity : AppCompatActivity() {
         setup_profile_img.setOnClickListener {
             SendUserToChooseAvatarActivity();
         }
+
+        usersRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot){
+                if(dataSnapshot.exists()){
+                    val image = dataSnapshot.child("profileImage").value.toString();
+                    Picasso.get().load(image).placeholder(R.drawable.profile_img).into(setup_profile_img);
+                }
+            }
+            override fun onCancelled(p0: DatabaseError) {
+            }
+        })
     }
 
     private fun SaveAccountSetUpInformation() {
