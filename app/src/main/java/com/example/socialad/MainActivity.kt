@@ -15,13 +15,17 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_setup.*
+import kotlinx.android.synthetic.main.navigation_header.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle;
     private lateinit var mAuth: FirebaseAuth;
     private lateinit var usersRef: DatabaseReference;
+    private lateinit var currentUserId: String;
 
     @SuppressLint("RestrictedApi")
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -30,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mAuth = FirebaseAuth.getInstance();
+        currentUserId = mAuth.currentUser!!.uid;
         usersRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users");
 
         val mToolbar : Toolbar = main_page_toolbar as Toolbar
@@ -41,6 +46,19 @@ class MainActivity : AppCompatActivity() {
         main_layout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
+
+        usersRef.child(currentUserId).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot){
+                if(dataSnapshot.exists()){
+                    val image = dataSnapshot.child("profileImage").value.toString();
+                    val fullname = dataSnapshot.child("fullname").value.toString()
+                    nav_username.text = fullname;
+                    Picasso.get().load(image).placeholder(R.drawable.profile_img).into(profile_img);
+                }
+            }
+            override fun onCancelled(p0: DatabaseError) {
+            }
+        })
 
         navigation_view.setNavigationItemSelectedListener {
             when(it.itemId){
