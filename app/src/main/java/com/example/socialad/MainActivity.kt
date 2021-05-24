@@ -47,19 +47,6 @@ class MainActivity : AppCompatActivity() {
         actionBarDrawerToggle.syncState();
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
 
-        usersRef.child(currentUserId).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot){
-                if(dataSnapshot.exists()){
-                    val image = dataSnapshot.child("profileImage").value.toString();
-                    val fullname = dataSnapshot.child("fullname").value.toString()
-                    nav_username.text = fullname;
-                    Picasso.get().load(image).placeholder(R.drawable.profile_img).into(profile_img);
-                }
-            }
-            override fun onCancelled(p0: DatabaseError) {
-            }
-        })
-
         navigation_view.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.nav_profile -> {
@@ -111,16 +98,33 @@ class MainActivity : AppCompatActivity() {
 
     private fun CheckUserExistance() {
         val current_user_id : String = mAuth.currentUser!!.uid;
-        Log.d(".MainActivity", "ci entro")
 
         usersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot){
                 if(!dataSnapshot.hasChild(current_user_id)){        //user authenticated but not present in database
                     SendUserToSetupActivity();
                 }
+                else{
+                    usersRef.child(currentUserId).addValueEventListener(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot){
+                            if(dataSnapshot.exists()){
+                                if(dataSnapshot.hasChild("fullname")){
+                                    val fullname = dataSnapshot.child("fullname").value.toString()
+                                    nav_username.text = fullname;
+                                }
+                                if(dataSnapshot.hasChild("profileImage")) {
+                                    val image = dataSnapshot.child("profileImage").value.toString();
+                                    Picasso.get().load(image).placeholder(R.drawable.profile_img)
+                                        .into(profile_img);
+                                }
+                            }
+                        }
+                        override fun onCancelled(p0: DatabaseError) {
+                        }
+                    })
+                }
             }
             override fun onCancelled(error: DatabaseError) {
-
             }
         });
     }

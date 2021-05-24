@@ -80,8 +80,11 @@ class SetupActivity : AppCompatActivity() {
         usersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot){
                 if(dataSnapshot.exists()){
-                    val image = dataSnapshot.child("profileImage").value.toString();
-                    Picasso.get().load(image).placeholder(R.drawable.profile_img).into(setup_profile_img);
+                    if(dataSnapshot.hasChild("profileImage")) {
+                        val image = dataSnapshot.child("profileImage").value.toString();
+                        Picasso.get().load(image).placeholder(R.drawable.profile_img)
+                            .into(setup_profile_img);
+                    }
                 }
             }
             override fun onCancelled(p0: DatabaseError) {
