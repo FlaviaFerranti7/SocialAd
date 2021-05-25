@@ -75,13 +75,16 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_post -> {
-                    Toast.makeText(this, "ADD POST", Toast.LENGTH_SHORT).show();
+                    SendUserToPostActivity();
                     true
                 }
                 else -> false
             }
         }
 
+        main_add_post.setOnClickListener {
+                SendUserToPostActivity();
+        }
 
     }
 
@@ -141,6 +144,10 @@ class MainActivity : AppCompatActivity() {
         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
         finish();
+    }
+    private fun SendUserToPostActivity() {
+        val addNewPostIntent = Intent(this, PostActivity::class.java);
+        startActivity(addNewPostIntent);
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

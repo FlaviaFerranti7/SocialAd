@@ -12,5 +12,6 @@
     <dimen name="img_profile">200dp</dimen>
     <dimen name="box_border">5dp</dimen>
     <dimen name="btn_width">150dp</dimen>
+    <dimen name="clickable_icon">48dp</dimen>
 
 </resources>

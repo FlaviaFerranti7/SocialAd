@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login"
+    tools:context=".PostActivity">
+
+    <include
+        android:id="@+id/update_post_toolbar"
+        layout="@layout/app_bar_layout"/>
+
+    <EditText
+        android:id="@+id/post_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/update_post_toolbar"
+        android:layout_marginLeft="@dimen/box_border"
+        android:layout_marginTop="@dimen/distance"
+        android:layout_marginRight="@dimen/box_border"
+        android:background="@drawable/inputs"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Write your ad"
+        android:inputType="textMultiLine"
+        android:padding="@dimen/text_field" />
+
+    <Button
+        android:id="@+id/add_post_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/post_text"
+        android:layout_centerHorizontal="true"
+        android:text="Add post"
+        android:background="@drawable/button"
+        android:layout_marginLeft="@dimen/box_border"
+        android:layout_marginTop="@dimen/distance"
+        android:layout_marginRight="@dimen/box_border"
+        android:padding="@dimen/btn"
+        android:textSize="@dimen/btn_text"/>
+</RelativeLayout>
