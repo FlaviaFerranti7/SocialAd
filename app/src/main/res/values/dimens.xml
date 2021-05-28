@@ -3,6 +3,7 @@
     <dimen name="image">150dp</dimen>
     <dimen name="text_field">10dp</dimen>
     <dimen name="text">16sp</dimen>
+    <dimen name="subtext">13sp</dimen>
     <dimen name="btn">10dp</dimen>
     <dimen name="btn_text">20sp</dimen>
     <dimen name="border">2dp</dimen>

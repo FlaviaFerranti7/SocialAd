@@ -23,6 +23,8 @@ class SetupActivity : AppCompatActivity() {
     private lateinit var userProfileImageRef : StorageReference;
     private lateinit var filePath : StorageReference;
 
+    private lateinit var listener : ValueEventListener;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setup)
@@ -77,7 +79,7 @@ class SetupActivity : AppCompatActivity() {
             SendUserToChooseAvatarActivity();
         }
 
-        usersRef.addValueEventListener(object : ValueEventListener {
+        listener = usersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot){
                 if(dataSnapshot.exists()){
                     if(dataSnapshot.hasChild("profileImage")) {
@@ -144,5 +146,12 @@ class SetupActivity : AppCompatActivity() {
         avatarIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(avatarIntent);
         finish();
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(usersRef!=null){
+            usersRef.removeEventListener(listener);
+        }
     }
 }

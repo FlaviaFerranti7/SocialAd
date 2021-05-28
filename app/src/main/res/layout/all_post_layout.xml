@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/border"
+        android:layout_marginLeft="@dimen/distance"
+        android:layout_marginRight="@dimen/distance"
+        android:layout_marginTop="@dimen/distance">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/border"
+            android:padding="@dimen/box_border"
+            android:orientation="horizontal">
+            
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/post_profile_image"
+                android:layout_width="@dimen/login_logo"
+                android:layout_height="@dimen/login_logo"
+                android:src="@drawable/profile_img"
+                android:scaleType="centerCrop"
+                android:layout_marginLeft="@dimen/border">
+            </de.hdodenhof.circleimageview.CircleImageView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/post_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/username"
+                    android:layout_marginLeft="@dimen/box_border"
+                    android:layout_marginTop="@dimen/box_border"
+                    android:textAlignment="textStart"
+                    android:textSize="@dimen/text"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="@dimen/box_border"
+                    android:padding="@dimen/border">
+
+                    <TextView
+                        android:id="@+id/text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="created"
+                        android:textSize="@dimen/subtext"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/darker_gray" />
+                    <TextView
+                        android:id="@+id/post_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date"
+                        android:textSize="@dimen/subtext"
+                        android:textColor="@android:color/black" />
+                    <TextView
+                        android:id="@+id/post_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time"
+                        android:textSize="@dimen/subtext"
+                        android:textColor="@android:color/black" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/post_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Post description"
+            android:layout_marginLeft="@dimen/border"
+            android:layout_marginRight="@dimen/border"
+            android:padding="@dimen/border"
+            android:textSize="@dimen/text"
+            android:textColor="@android:color/black"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

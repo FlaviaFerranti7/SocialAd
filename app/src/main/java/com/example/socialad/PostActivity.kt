@@ -1,5 +1,6 @@
 package com.example.socialad
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
@@ -28,7 +29,10 @@ class PostActivity : AppCompatActivity() {
     private lateinit var saveCurrentDate: String;
     private lateinit var postname: String;
 
+    private lateinit var listener : ValueEventListener;
 
+
+    @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post)
@@ -71,7 +75,7 @@ class PostActivity : AppCompatActivity() {
     }
 
     private fun StoringPostToFirebaseDatabase(d: String) {
-        usersRef.child(currentUserId).addValueEventListener(object : ValueEventListener {
+        listener = usersRef.child(currentUserId).addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0.exists()){
@@ -86,7 +90,7 @@ class PostActivity : AppCompatActivity() {
                     postMap.put("profileImage", userProfileImage);
                     postMap.put("description", d);
 
-                    postsRef.child(currentUserId + postname).updateChildren(postMap).addOnCompleteListener {
+                    postsRef.child(postname + currentUserId).updateChildren(postMap).addOnCompleteListener {
                       if(it.isSuccessful){
                           SendUserToMainActivity();
                           Toast.makeText(this@PostActivity, "New post created successfully  ", Toast.LENGTH_SHORT).show();
@@ -116,5 +120,10 @@ class PostActivity : AppCompatActivity() {
     private fun SendUserToMainActivity() {
         val mainIntent = Intent(this, MainActivity::class.java);
         startActivity(mainIntent);
+    }
+
+    override fun onStop() {
+        super.onStop()
+        usersRef.child(currentUserId).removeEventListener(listener);
     }
 }
