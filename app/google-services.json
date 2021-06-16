@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "78838573309",
+    "firebase_url": "https://socialad-78b0e-default-rtdb.firebaseio.com",
     "project_id": "socialad-78b0e",
     "storage_bucket": "socialad-78b0e.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "78838573309-13r8ddpcpm8kubgs1jp34kngdg8trr1u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.socialad",
+            "certificate_hash": "dcc32c1583d92b8e22a428b480567d6d25099800"
+          }
+        },
         {
           "client_id": "78838573309-tu0g5ar8moo6gka4o77467rmgc0mfs7m.apps.googleusercontent.com",
           "client_type": 3

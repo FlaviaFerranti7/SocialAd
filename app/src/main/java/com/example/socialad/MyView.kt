@@ -1,15 +1,15 @@
 package com.example.socialad
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.*
+import android.os.Parcel
+import android.os.Parcelable
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
+
 
 class MyView(context: Context?) : View(context), View.OnTouchListener {
 
@@ -65,8 +65,8 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
     }
 
     init {
-        setOnTouchListener(this)
-
+        isSaveEnabled = true;
+        setOnTouchListener(this);
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -165,6 +165,7 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
             else { facePaint.color = ContextCompat.getColor(context, R.color.f_brown); lastColorSave = position;}
             changeColor = false
         }
+
         canvas.drawCircle((width /2).toFloat(), (height /1.6).toFloat(), radius, facePaint);    //face
 
         drawRhombus(canvas, blackPaint, (width /2), (height /1.6 + radius/4).toInt(), (radius/8).toInt());  //nose
@@ -181,6 +182,7 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
                 (2.5*dx).toFloat() +dx/2-offx,
                 (7.5*dy).toFloat() +dy/2-offy,
                 textPaint);
+
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {

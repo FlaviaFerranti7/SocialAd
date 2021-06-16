@@ -51,7 +51,7 @@ class PostActivity : AppCompatActivity() {
         postsRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Posts");
 
         saveCurrentTime = SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().time)
-        saveCurrentDate = SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().time)
+        saveCurrentDate = SimpleDateFormat("MM-dd-yyyy").format(Calendar.getInstance().time)
         postname = saveCurrentDate + saveCurrentTime
 
         add_post_btn.setOnClickListener {
@@ -120,10 +120,5 @@ class PostActivity : AppCompatActivity() {
     private fun SendUserToMainActivity() {
         val mainIntent = Intent(this, MainActivity::class.java);
         startActivity(mainIntent);
-    }
-
-    override fun onStop() {
-        super.onStop()
-        usersRef.child(currentUserId).removeEventListener(listener);
     }
 }

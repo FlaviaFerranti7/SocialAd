@@ -92,6 +92,11 @@
             android:textSize="@dimen/text"
             android:textColor="@android:color/black"/>
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/border"
+            android:background="@android:color/darker_gray"/>
+
     </LinearLayout>
 
 </RelativeLayout>

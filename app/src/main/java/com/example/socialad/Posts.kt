@@ -15,8 +15,7 @@ class Posts {
         date: String,
         description: String,
         fullname: String,
-        profileImage: String
-    ) {
+        profileImage: String) {
         this.uid = uid
         this.time = time
         this.date = date

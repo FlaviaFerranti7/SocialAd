@@ -1,14 +1,21 @@
 package com.example.socialad
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.core.content.ContextCompat
+import android.util.Log
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 
 class ChooseAvatarActivity : AppCompatActivity() {
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(MyView(this));
+
+        val view = MyView(this)
+        view.id = R.id.chooseAvatarView;
+
+        setContentView(view);
+
     }
 
 }
