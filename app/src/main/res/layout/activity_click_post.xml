@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login"
+    tools:context=".ClickPostActivity">
+
+    <TextView
+        android:id="@+id/click_post_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/box_border"
+        android:layout_marginTop="@dimen/distance"
+        android:layout_marginRight="@dimen/box_border"
+        android:background="@drawable/inputs"
+        android:gravity="start|top"
+        android:padding="@dimen/btn"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/click_post_description"
+        android:layout_marginTop="@dimen/border"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:padding="@dimen/box_border">
+
+        <Button
+            android:id="@+id/click_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/click_post_description"
+            android:layout_marginLeft="@dimen/box_border"
+            android:layout_marginTop="@dimen/distance"
+            android:layout_marginRight="@dimen/box_border"
+            android:background="@drawable/button"
+            android:padding="@dimen/btn"
+            android:text="  Edit post  "
+            android:textSize="@dimen/btn_text"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/click_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/box_border"
+            android:layout_marginTop="@dimen/distance"
+            android:layout_marginRight="@dimen/box_border"
+            android:background="@drawable/button"
+            android:padding="@dimen/btn"
+            android:text="Delete post"
+            android:textSize="@dimen/btn_text"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+</RelativeLayout>

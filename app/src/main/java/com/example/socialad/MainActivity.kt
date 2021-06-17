@@ -1,15 +1,18 @@
 package com.example.socialad
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
@@ -21,6 +24,8 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.all_post_layout.view.*
 import kotlinx.android.synthetic.main.navigation_header.*
+import java.security.AccessController.getContext
+import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
 
@@ -120,6 +125,12 @@ class MainActivity : AppCompatActivity() {
 
             override fun onBindViewHolder(holder: PostViewHolder, position: Int, model: Posts) {
                     holder.bind(model)
+                    holder.itemView.setOnClickListener { v ->
+                        val intent = Intent(v.context, ClickPostActivity::class.java)
+                        intent.putExtra("PostKey", getRef(position).key)
+                        v.context.startActivity(intent)
+
+                    }
             }
 
         }
@@ -129,6 +140,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+
         @SuppressLint("SetTextI18n")
         fun bind(post: Posts) {
             with(post) {
