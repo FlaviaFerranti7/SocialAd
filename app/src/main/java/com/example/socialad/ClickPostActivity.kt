@@ -1,12 +1,15 @@
 package com.example.socialad
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -43,27 +46,66 @@ class ClickPostActivity : AppCompatActivity() {
         clickPostRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Posts").child(postKey);
         clickPostRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var profileImage = snapshot.child("profileImage").value.toString()
-                var username = snapshot.child("fullname").value.toString()
-                var date = snapshot.child("date").value.toString()
-                var time = snapshot.child("time").value.toString()
-                var description = snapshot.child("description").value.toString()
-                var databaseUserId = snapshot.child("uid").value.toString()
+                if(snapshot.exists()){
+                    var profileImage = snapshot.child("profileImage").value.toString()
+                    var username = snapshot.child("fullname").value.toString()
+                    var date = snapshot.child("date").value.toString()
+                    var time = snapshot.child("time").value.toString()
+                    var description = snapshot.child("description").value.toString()
+                    var databaseUserId = snapshot.child("uid").value.toString()
 
-                Picasso.get().load(profileImage).placeholder(R.drawable.profile_img).into(click_post_profile_image);
-                click_post_user_name.text = username;
-                click_post_date.text = "   $date";
-                click_post_time.text = "  -  $time";
-                click_post_description.text = description;
+                    Picasso.get().load(profileImage).placeholder(R.drawable.profile_img).into(click_post_profile_image);
+                    click_post_user_name.text = username;
+                    click_post_date.text = "   $date";
+                    click_post_time.text = "  -  $time";
+                    click_post_description.text = description;
 
-                if(currentUserId.equals(databaseUserId)){
-                    click_delete.visibility = View.VISIBLE
-                    click_edit.visibility = View.VISIBLE
+                    if(currentUserId.equals(databaseUserId)){
+                        click_delete.visibility = View.VISIBLE
+                        click_edit.visibility = View.VISIBLE
+                    }
+
+                    click_edit.setOnClickListener {
+                        EditCurrentPost(description);
+                    }
                 }
             }
             override fun onCancelled(error: DatabaseError) {
             }
         })
+
+        click_delete.setOnClickListener {
+            DeleteCurrentPost();
+        }
+    }
+
+    private fun EditCurrentPost(description: String) {
+        val builder = AlertDialog.Builder(this);
+        builder.setTitle("Edit Post");
+
+        val inputField = EditText(this);
+        inputField.setText(description);
+        builder.setView(inputField);
+
+        builder.setPositiveButton("Update", DialogInterface.OnClickListener { dialog, which ->
+            clickPostRef.child("description").setValue(inputField.text.toString());
+            Toast.makeText(this, "The post has been updated successfully", Toast.LENGTH_SHORT).show();
+        });
+
+        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
+            dialog.cancel();
+        });
+
+        val dialog = builder.create();
+        dialog.show();
+        dialog.window!!.setBackgroundDrawableResource(android.R.color.background_light)
+
+    }
+
+    private fun DeleteCurrentPost() {
+        clickPostRef.removeValue();
+        SendUserToMainActivity()
+        Toast.makeText(this, "The post has been deleted successfully", Toast.LENGTH_SHORT).show();
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
