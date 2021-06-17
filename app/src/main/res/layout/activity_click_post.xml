@@ -6,28 +6,116 @@
     android:layout_height="match_parent"
     android:background="@drawable/login"
     tools:context=".ClickPostActivity">
+    <include
+        android:id="@+id/click_post_toolbar"
+        layout="@layout/app_bar_layout"/>
+
+    <LinearLayout
+        android:id="@+id/click_post_info"
+        android:layout_below="@id/click_post_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/box_border"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/border"
+        android:layout_marginLeft="@dimen/distance"
+        android:layout_marginRight="@dimen/distance"
+        android:layout_marginTop="@dimen/distance">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/click_post_profile_image"
+            android:layout_width="@dimen/login_logo"
+            android:layout_height="@dimen/login_logo"
+            android:src="@drawable/profile_img"
+            android:scaleType="centerCrop"
+            android:layout_marginLeft="@dimen/border">
+        </de.hdodenhof.circleimageview.CircleImageView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/click_post_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/username"
+                android:layout_marginLeft="@dimen/box_border"
+                android:layout_marginTop="@dimen/box_border"
+                android:textAlignment="textStart"
+                android:textSize="@dimen/text"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/box_border"
+                android:padding="@dimen/border">
+
+                <TextView
+                    android:id="@+id/click_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="created"
+                    android:textSize="@dimen/subtext"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/darker_gray" />
+                <TextView
+                    android:id="@+id/click_post_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:textSize="@dimen/subtext"
+                    android:textColor="@android:color/black" />
+                <TextView
+                    android:id="@+id/click_post_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time"
+                    android:textSize="@dimen/subtext"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/click_post_description"
+        android:layout_below="@id/click_post_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/box_border"
-        android:layout_marginTop="@dimen/distance"
-        android:layout_marginRight="@dimen/box_border"
-        android:background="@drawable/inputs"
         android:gravity="start|top"
         android:padding="@dimen/btn"
         android:textColor="@color/black"
-        android:textSize="@dimen/text" />
+        android:textSize="@dimen/text"
+        android:layout_marginBottom="@dimen/border"
+        android:layout_marginLeft="@dimen/distance"
+        android:layout_marginRight="@dimen/distance"
+        android:layout_marginTop="@dimen/distance"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/border"
+        android:layout_below="@id/click_post_description"
+        android:background="@android:color/darker_gray"
+        android:layout_marginLeft="@dimen/distance"
+        android:layout_marginRight="@dimen/distance"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/click_post_description"
-        android:layout_marginTop="@dimen/border"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:padding="@dimen/box_border">
+        android:padding="@dimen/box_border"
+        android:layout_marginBottom="@dimen/border"
+        android:layout_marginLeft="@dimen/distance"
+        android:layout_marginRight="@dimen/distance"
+        android:layout_marginTop="@dimen/distance">
 
         <Button
             android:id="@+id/click_edit"
