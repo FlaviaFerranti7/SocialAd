@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_settings -> {
-                    Toast.makeText(this, "SETTINGS", Toast.LENGTH_SHORT).show();
+                    SendUserToSettingsActivity()
                     true
                 }
                 R.id.nav_logout -> {
@@ -216,6 +216,11 @@ class MainActivity : AppCompatActivity() {
     private fun SendUserToPostActivity() {
         val addNewPostIntent = Intent(this, PostActivity::class.java);
         startActivity(addNewPostIntent);
+    }
+
+    private fun SendUserToSettingsActivity() {
+        val settingsIntent = Intent(this, SettingsActivity::class.java);
+        startActivity(settingsIntent);
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
