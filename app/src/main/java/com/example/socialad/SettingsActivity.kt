@@ -35,7 +35,7 @@ class SettingsActivity : AppCompatActivity() {
 
         val mToolbar : Toolbar = settings_toolbar as Toolbar
         setSupportActionBar(mToolbar);
-        supportActionBar?.title = " AccountSettings";
+        supportActionBar?.title = " Account Settings";
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
 
         loadingBar = ProgressDialog(this)

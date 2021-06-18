@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         navigation_view.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.nav_profile -> {
-                    Toast.makeText(this, "PROFILE", Toast.LENGTH_SHORT).show();
+                    SendUserToProfileActivity()
                     true
                 }
                 R.id.nav_home -> {
@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
         var postsQuery = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/")
                 .reference
                 .child("Posts")
-                .limitToLast(50)
+                .limitToLast(100)
         val options = FirebaseRecyclerOptions.Builder<Posts>()
                 .setQuery(postsQuery,Posts::class.java)
                 .setLifecycleOwner(this)
@@ -233,6 +233,10 @@ class MainActivity : AppCompatActivity() {
     private fun SendUserToSettingsActivity() {
         val settingsIntent = Intent(this, SettingsActivity::class.java);
         startActivity(settingsIntent);
+    }
+    private fun SendUserToProfileActivity() {
+        val profileIntent = Intent(this, ProfileActivity::class.java);
+        startActivity(profileIntent);
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
