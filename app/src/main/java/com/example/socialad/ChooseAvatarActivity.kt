@@ -11,8 +11,15 @@ class ChooseAvatarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         val view = MyView(this)
         view.id = R.id.chooseAvatarView;
+
+        val extras = intent.extras
+        if (extras != null) {
+            val value = extras.getString("Activity_Name").toString()
+            view.setactivity(value);
+        }
 
         setContentView(view);
 

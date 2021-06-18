@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -30,6 +33,7 @@ import kotlin.properties.Delegates
 class MainActivity : AppCompatActivity() {
 
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle;
+    private lateinit var googleSignInClient: GoogleSignInClient;
     private lateinit var mAuth: FirebaseAuth;
     private lateinit var usersRef: DatabaseReference;
     private lateinit var currentUserId: String;
@@ -45,6 +49,13 @@ class MainActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.currentUser!!.uid;
         usersRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users");
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
 
         val mToolbar : Toolbar = main_page_toolbar as Toolbar
         setSupportActionBar(mToolbar);
@@ -88,6 +99,7 @@ class MainActivity : AppCompatActivity() {
                     usersRef.child(currentUserId).removeEventListener(listener2);
                     usersRef.removeEventListener(listener1);
                     mAuth.signOut();
+                    googleSignInClient.signOut()
                     SendUserToLoginActivity();
                     true
                 }

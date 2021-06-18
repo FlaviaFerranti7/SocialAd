@@ -1,10 +1,11 @@
 package com.example.socialad
 
+import android.annotation.SuppressLint
+import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.getIntent
 import android.graphics.*
-import android.os.Parcel
-import android.os.Parcelable
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -12,6 +13,8 @@ import androidx.core.content.ContextCompat
 
 
 class MyView(context: Context?) : View(context), View.OnTouchListener {
+
+    var activity : String = "B";
 
     var dx = 0f //Distance among vertical lines
     var dy = 0f //Distance among horizontal lines
@@ -241,11 +244,25 @@ class MyView(context: Context?) : View(context), View.OnTouchListener {
         canvas.drawPath(path, paint!!)
     }
 
+    public fun setactivity(activity: String){
+        this.activity = activity;
+    }
+
+    @SuppressLint("RestrictedApi")
     private fun SendUserToSetupActivity(value : String) {
-        val setupIntent = Intent(context, SetupActivity::class.java);
-        setupIntent.putExtra("photo", value);
-        setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        context.startActivity(setupIntent);
+
+        if(activity.equals("A")){
+            val setupIntent = Intent(context, SettingsActivity::class.java);
+            setupIntent.putExtra("photo", value);
+            setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            context.startActivity(setupIntent);
+        }
+        else{
+            val setupIntent = Intent(context, SetupActivity::class.java);
+            setupIntent.putExtra("photo", value);
+            setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            context.startActivity(setupIntent);
+        }
     }
 
 }
