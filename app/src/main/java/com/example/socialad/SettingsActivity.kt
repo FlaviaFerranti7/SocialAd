@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.all_post_layout.view.*
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var settingsUserRef: DatabaseReference;
+    private lateinit var postUserRef: DatabaseReference;
     private lateinit var mAuth: FirebaseAuth;
     private lateinit var currentUserId : String;
 
@@ -33,6 +34,8 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
+        Utils.setupUI(settings_layout,this);
+
         val mToolbar : Toolbar = settings_toolbar as Toolbar
         setSupportActionBar(mToolbar);
         supportActionBar?.title = " Account Settings";
@@ -43,6 +46,7 @@ class SettingsActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.uid!!;
         settingsUserRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users").child(currentUserId)
+        postUserRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Posts")
 
         settingsUserRef.addValueEventListener(object: ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
@@ -84,8 +88,31 @@ class SettingsActivity : AppCompatActivity() {
                         val u = uri.toString()
                         settingsUserRef.child("profileImage").setValue(u).addOnCompleteListener {
                             if(it.isSuccessful){
-                                Toast.makeText(this, "Profile Image correctly stored to firebase database", Toast.LENGTH_SHORT).show()
+                                var postsQuery = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/") //update the post of the users
+                                    .getReference("Posts").orderByChild("uid").equalTo(currentUserId).addChildEventListener(object : ChildEventListener{
+                                        override fun onCancelled(error: DatabaseError) {
+                                        }
+                                        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                                        }
+                                        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                                        }
+                                        override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                                            val post : Posts? = snapshot.getValue(Posts::class.java);
+                                            postUserRef.child(snapshot.key!!).child("profileImage").setValue(u).addOnCompleteListener {
+                                                if(it.isSuccessful){
+                                                    Toast.makeText(this@SettingsActivity, "All posts updated", Toast.LENGTH_SHORT).show();
+                                                }
+                                                else{
+                                                    Toast.makeText(this@SettingsActivity, "An error occurred, please try again", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+
+                                        }
+                                        override fun onChildRemoved(snapshot: DataSnapshot) {
+                                        }
+                                    })
                                 loadingBar.dismiss();
+
                             }
                             else{
                                 val message = it.exception?.message;
@@ -157,6 +184,29 @@ class SettingsActivity : AppCompatActivity() {
 
         settingsUserRef.updateChildren(userMap).addOnCompleteListener {
             if(it.isSuccessful){
+                var postsQuery = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/") //update the post of the users (changing name)
+                    .getReference("Posts").orderByChild("uid").equalTo(currentUserId).addChildEventListener(object : ChildEventListener{
+                        override fun onCancelled(error: DatabaseError) {
+                        }
+                        override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                        }
+                        override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                        }
+                        override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                            val post : Posts? = snapshot.getValue(Posts::class.java);
+                            postUserRef.child(snapshot.key!!).child("fullname").setValue(fullName).addOnCompleteListener {
+                                if(it.isSuccessful){
+                                    Toast.makeText(this@SettingsActivity, "All posts updated", Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Toast.makeText(this@SettingsActivity, "An error occurred, please try again", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                        }
+                        override fun onChildRemoved(snapshot: DataSnapshot) {
+                        }
+                    })
                 SendUserToMainActivity();
                 Toast.makeText(this, "Account information updated successfully", Toast.LENGTH_SHORT).show();
             }

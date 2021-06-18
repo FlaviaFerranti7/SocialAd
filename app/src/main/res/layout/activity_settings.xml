@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SettingsActivity"
-    android:background="@drawable/login">
+    android:background="@drawable/login"
+    android:id="@+id/settings_layout">
 
     <include android:id="@+id/settings_toolbar"
         layout="@layout/app_bar_layout">

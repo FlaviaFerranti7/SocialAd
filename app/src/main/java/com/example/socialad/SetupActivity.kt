@@ -58,7 +58,6 @@ class SetupActivity : AppCompatActivity() {
                         val u = uri.toString()
                         usersRef.child("profileImage").setValue(u).addOnCompleteListener {
                             if(it.isSuccessful){
-                                Toast.makeText(this, "Profile Image correctly stored to firebase database", Toast.LENGTH_SHORT).show()
                                 loadingBar.dismiss();
                             }
                             else{
