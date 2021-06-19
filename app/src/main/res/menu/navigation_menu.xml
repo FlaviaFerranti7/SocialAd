@@ -2,17 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_post"
-        android:title="Add new post"
-        android:icon="@drawable/new_post"/>
-    <item
         android:id="@+id/nav_profile"
         android:title="Profile"
         android:icon="@drawable/profile"/>
-    <item
-        android:id="@+id/nav_home"
-        android:title="Home"
-        android:icon="@drawable/home"/>
+
     <item
         android:id="@+id/nav_search"
         android:title="Search Users"

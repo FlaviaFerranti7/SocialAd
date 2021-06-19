@@ -1,5 +1,6 @@
 package com.example.socialad
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,13 @@ class ResultUsersAdapter(private val dataSet: MutableList<Users>) : RecyclerView
         viewHolder.fullname.text = dataSet[position].fullname
         viewHolder.status.text = dataSet[position].status
         Picasso.get().load(dataSet[position].profileImage).placeholder(R.drawable.profile_img).into(viewHolder.image);
+
+        viewHolder.itemView.setOnClickListener { v ->
+            val intent = Intent(v.context, ProfileActivity::class.java)
+            intent.putExtra("user", dataSet[position].key)
+            v.context.startActivity(intent)
+
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

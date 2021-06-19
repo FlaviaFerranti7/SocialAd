@@ -1,31 +1,21 @@
 package com.example.socialad
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.firebase.ui.database.FirebaseRecyclerAdapter
-import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_find_users.*
 import kotlinx.android.synthetic.main.activity_profile.*
-import kotlinx.android.synthetic.main.all_post_layout.view.*
 
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var profileUserRef: DatabaseReference;
     private lateinit var mAuth: FirebaseAuth;
-    private lateinit var currentUserId : String;
+    private lateinit var user : String;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +27,16 @@ class ProfileActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
-        currentUserId = mAuth.uid!!;
-        profileUserRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users").child(currentUserId)
+
+        val extras = intent.extras
+        if(extras!=null){
+            user = extras.getString("user").toString();
+        }
+        else{
+            user = mAuth.uid!!
+        }
+
+        profileUserRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users").child(user)
 
         profileUserRef.addValueEventListener(object: ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
@@ -74,7 +72,7 @@ class ProfileActivity : AppCompatActivity() {
     private fun DisplayAllUserPost() {
 
         FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Posts")
-                .orderByChild("uid").equalTo(currentUserId).addValueEventListener(object : ValueEventListener{
+                .orderByChild("uid").equalTo(user).addValueEventListener(object : ValueEventListener{
                     override fun onCancelled(error: DatabaseError) {
                     }
 

@@ -33,13 +33,13 @@ class ResetPasswordActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please write your email first", Toast.LENGTH_SHORT).show()
             }
             else{
-                mAuth.sendPasswordResetEmail(user_email).addOnCompleteListener {
+                mAuth.sendPasswordResetEmail(user_email.trim()).addOnCompleteListener {
                     if(it.isSuccessful){
                         Toast.makeText(this, "Check your email now", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this, LoginActivity::class.java))
                     }
                     else{
-                        val message = it.exception?.message?.trim()
+                        val message = it.exception?.message
                         Toast.makeText(this, "Error occured: $message", Toast.LENGTH_SHORT).show()
                     }
                 }

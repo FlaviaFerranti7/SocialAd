@@ -49,6 +49,7 @@ class FindUsersActivity : AppCompatActivity() {
                 for( ds in snapshot.children) {
                     val user: Users? = ds.getValue(Users::class.java);
                     if (user != null) {
+                        user.key = ds.key;
                         temp.add(user);
                     }
                 }

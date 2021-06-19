@@ -7,6 +7,9 @@ class Users {
     var country: String? = "";
     var username: String? = "";
 
+    @Transient
+    var key: String? = ""
+
 
     constructor(fullname: String?, profileImage: String?, status: String?, country: String?, username: String?) {
         this.fullname = fullname
