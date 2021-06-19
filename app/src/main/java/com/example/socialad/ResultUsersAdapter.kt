@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
-class ResultUsersAdapter(private val dataSet: MutableList<FindUsers>) : RecyclerView.Adapter<ResultUsersAdapter.ViewHolder>() {
+class ResultUsersAdapter(private val dataSet: MutableList<Users>) : RecyclerView.Adapter<ResultUsersAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val fullname: TextView;

@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.activity_find_users.*
 class FindUsersActivity : AppCompatActivity() {
 
     private lateinit var allUserDatabaseRef: DatabaseReference;
-    private var result = FindUsers("","","");
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,26 +35,18 @@ class FindUsersActivity : AppCompatActivity() {
     }
 
     private fun SearchUsers(value: String) {
-        allUserDatabaseRef.keepSynced(true);
         var usersQuery = allUserDatabaseRef.orderByChild("fullname").startAt(value).endAt(value + "\uf8ff").addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
 
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                val temp: MutableList<FindUsers> = ArrayList()
+                val temp: MutableList<Users> = ArrayList()
                 for( ds in snapshot.children) {
                     val user: Users? = ds.getValue(Users::class.java);
                     if (user != null) {
-                        result.fullname = user.fullname
-                        result.profileImage = user.profileImage
-                        result.status = user.status
-                        temp.add(result);
-                        result = FindUsers("","","");
+                        temp.add(user);
                     }
-                }
-                for(r in temp){
-                    println(r.fullname)
                 }
                 val resultUsersAdapter = ResultUsersAdapter(temp)
                 find_result_list.adapter = resultUsersAdapter;

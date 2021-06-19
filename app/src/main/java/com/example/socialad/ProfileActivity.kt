@@ -16,6 +16,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_find_users.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.all_post_layout.view.*
 
@@ -72,54 +73,24 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun DisplayAllUserPost() {
 
-        var postsQuery = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/")
-                .reference
-                .child("Posts")
-                .orderByChild("uid")
-                .equalTo(currentUserId)
-                .limitToLast(100)
+        FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Posts")
+                .orderByChild("uid").equalTo(currentUserId).addValueEventListener(object : ValueEventListener{
+                    override fun onCancelled(error: DatabaseError) {
+                    }
 
-        postsQuery.keepSynced(true)
-
-        val options = FirebaseRecyclerOptions.Builder<Posts>()
-                .setQuery(postsQuery,Posts::class.java)
-                .setLifecycleOwner(this)
-                .build()
-
-        val firebaseRecyclerAdapter = object : FirebaseRecyclerAdapter<Posts, MainActivity.PostViewHolder>(options){
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainActivity.PostViewHolder {
-                return MainActivity.PostViewHolder(LayoutInflater.from(parent.context)
-                        .inflate(R.layout.all_post_layout, parent, false))
-            }
-
-            override fun onBindViewHolder(holder: MainActivity.PostViewHolder, position: Int, model: Posts) {
-                holder.bind(model)
-                holder.itemView.setOnClickListener { v ->
-                    val intent = Intent(v.context, ClickPostActivity::class.java)
-                    intent.putExtra("PostKey", getRef(position).key)
-                    v.context.startActivity(intent)
-
-                }
-            }
-
-        }
-        profile_post_list.adapter = firebaseRecyclerAdapter;
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val temp: MutableList<Posts> = ArrayList()
+                        for( ds in snapshot.children) {
+                            val post: Posts? = ds.getValue(Posts::class.java);
+                            if (post != null) {
+                                temp.add(post);
+                            }
+                        }
+                        val postsAdapter = PostsAdapter(temp)
+                        profile_post_list.adapter = postsAdapter;
+                    }
+                })
 
     }
 
-    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-
-        @SuppressLint("SetTextI18n")
-        fun bind(post: Posts) {
-            with(post) {
-                itemView.post_description?.text = description;
-                itemView.post_date?.text = "   $date"
-                itemView.post_time?.text = "  -  $time"
-                itemView.post_user_name?.text = fullname
-                Picasso.get().load(profileImage).placeholder(R.drawable.profile_img)
-                    .into(itemView.post_profile_image);
-            }
-        }
-
-    }
 }
