@@ -2,7 +2,10 @@ package com.example.socialad
 
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -79,6 +82,19 @@ class SettingsActivity : AppCompatActivity() {
 
             userProfileImageRef = FirebaseStorage.getInstance().reference.child("profile Images");
             filePath = userProfileImageRef.child(currentUserId + ".jpg");
+
+            var connected = false
+            val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            connected = if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)!!.state == NetworkInfo.State.CONNECTED ||
+                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)!!.state == NetworkInfo.State.CONNECTED) {
+                //we are connected to a network
+                true
+            } else false
+            if(!connected){
+                Toast.makeText(this, "You have lost connection, the info will be updated once your reconnect", Toast.LENGTH_SHORT).show();
+                SendUserToMainActivity();
+                loadingBar.dismiss();
+            }
 
             val path = Uri.parse("android.resource://" + BuildConfig.APPLICATION_ID + "/drawable/a"+value);
             filePath.putFile(path).addOnCompleteListener { task ->
@@ -181,6 +197,18 @@ class SettingsActivity : AppCompatActivity() {
         userMap.put("username", username);
         userMap.put("country", city);
         userMap.put("status", status);
+
+        var connected = false
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        connected = if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)!!.state == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)!!.state == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            true
+        } else false
+        if(!connected){
+            Toast.makeText(this, "You have lost connection, the info will be updated once your reconnect", Toast.LENGTH_SHORT).show();
+            SendUserToMainActivity();
+        }
 
         settingsUserRef.updateChildren(userMap).addOnCompleteListener {
             if(it.isSuccessful){
