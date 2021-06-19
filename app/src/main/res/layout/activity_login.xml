@@ -9,102 +9,104 @@
     tools:context=".LoginActivity"
     android:id="@+id/login_layout">
 
-    <ImageView
-        android:id="@+id/login_logo_img"
-        android:layout_width="@dimen/image"
-        android:layout_height="@dimen/image"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/distance"
-        app:srcCompat="@drawable/logo4" />
-
-    <EditText
-        android:id="@+id/login_email_field"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/login_logo_img"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="@dimen/box_border"
-        android:layout_marginTop="@dimen/distance"
-        android:layout_marginRight="@dimen/box_border"
-        android:background="@drawable/inputs"
-        android:drawableLeft="@drawable/email"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:padding="@dimen/text_field" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/login_logo_img"
+                android:layout_width="@dimen/image"
+                android:layout_height="@dimen/image"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/distance"
+                app:srcCompat="@drawable/logo4" />
+
+            <EditText
+                android:id="@+id/login_email_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/box_border"
+                android:layout_marginTop="@dimen/distance"
+                android:layout_marginRight="@dimen/box_border"
+                android:background="@drawable/inputs"
+                android:drawableLeft="@drawable/email"
+                android:ems="10"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/text_field" />
+
+            <EditText
+                android:id="@+id/login_psw_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/box_border"
+                android:layout_marginTop="@dimen/distance"
+                android:layout_marginRight="@dimen/box_border"
+                android:background="@drawable/inputs"
+                android:drawableStart="@drawable/password"
+                android:ems="10"
+                android:hint="@string/psw"
+                android:inputType="textPassword"
+                android:padding="@dimen/text_field" />
+
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/box_border"
+                android:layout_marginTop="@dimen/distance"
+                android:layout_marginRight="@dimen/box_border"
+                android:background="@drawable/button"
+                android:padding="@dimen/btn"
+                android:text="@string/login"
+                android:textSize="@dimen/btn_text" />
+
+            <TextView
+                android:id="@+id/link_to_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/btn"
+                android:clickable="true"
+                android:text="@string/link_register"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_blue_light"
+                android:textIsSelectable="true"
+                android:textSize="@dimen/btn_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/oAuth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/btn_text"
+                android:text="@string/oAuth"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/btn_text"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/btn_text"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
 
-    <EditText
-        android:id="@+id/login_psw_field"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/login_email_field"
-        android:layout_marginLeft="@dimen/box_border"
-        android:layout_marginTop="@dimen/distance"
-        android:layout_marginRight="@dimen/box_border"
-        android:background="@drawable/inputs"
-        android:drawableStart="@drawable/password"
-        android:ems="10"
-        android:hint="@string/psw"
-        android:inputType="textPassword"
-        android:padding="@dimen/text_field" />
+                <ImageView
+                    android:id="@+id/google_logo"
+                    android:layout_width="@dimen/login_logo"
+                    android:layout_height="@dimen/login_logo"
+                    android:src="@drawable/google" />
 
-    <Button
-        android:id="@+id/login_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/login_psw_field"
-        android:layout_marginLeft="@dimen/box_border"
-        android:layout_marginTop="@dimen/distance"
-        android:layout_marginRight="@dimen/box_border"
-        android:background="@drawable/button"
-        android:padding="@dimen/btn"
-        android:text="@string/login"
-        android:textSize="@dimen/btn_text" />
-
-    <TextView
-        android:id="@+id/link_to_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/login_button"
-        android:layout_marginTop="@dimen/btn"
-        android:clickable="true"
-        android:text="@string/link_register"
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_blue_light"
-        android:textIsSelectable="true"
-        android:textSize="@dimen/btn_text"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/oAuth"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/link_to_register"
-        android:layout_marginTop="@dimen/btn_text"
-        android:text="@string/oAuth"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/btn_text"
-        android:textStyle="bold" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/oAuth"
-        android:layout_marginTop="@dimen/btn_text"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-
-
-        <ImageView
-            android:id="@+id/google_logo"
-            android:layout_width="@dimen/login_logo"
-            android:layout_height="@dimen/login_logo"
-            android:src="@drawable/google" />
-
-    </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </RelativeLayout>

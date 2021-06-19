@@ -34,6 +34,7 @@
                     android:layout_height="@dimen/img_profile"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/distance"
                     android:layout_marginTop="@dimen/distance"
                     android:src="@drawable/profile_img" />
 

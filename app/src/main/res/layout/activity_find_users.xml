@@ -14,7 +14,7 @@
 
     </include>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/find_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,6 +33,7 @@
             android:hint="Search"
             android:inputType="textMultiLine"
             android:padding="@dimen/text_field"/>
+
         <ImageButton
             android:id="@+id/find_btn"
             android:layout_width="@dimen/clickable_icon"
@@ -42,7 +43,7 @@
             android:layout_toEndOf="@id/find_box_input"
             android:background="@drawable/inputs"
             android:src="@drawable/search"/>
-    </RelativeLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/find_division"

@@ -8,73 +8,78 @@
     tools:context=".RegisterActivity"
     android:id="@+id/register_layout">
 
-    <ImageView
-        android:id="@+id/register_logo_img"
-        android:layout_width="@dimen/image"
-        android:layout_height="@dimen/image"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/distance"
-        app:srcCompat="@drawable/logo4" />
-
-    <EditText
-        android:id="@+id/register_email_field"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/register_logo_img"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="@dimen/box_border"
-        android:layout_marginTop="@dimen/distance"
-        android:layout_marginRight="@dimen/box_border"
-        android:background="@drawable/inputs"
-        android:drawableLeft="@drawable/email"
-        android:ems="10"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:padding="@dimen/text_field" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/register_logo_img"
+                android:layout_width="@dimen/image"
+                android:layout_height="@dimen/image"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/distance"
+                app:srcCompat="@drawable/logo4" />
+
+            <EditText
+                android:id="@+id/register_email_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/box_border"
+                android:layout_marginTop="@dimen/distance"
+                android:layout_marginRight="@dimen/box_border"
+                android:background="@drawable/inputs"
+                android:drawableLeft="@drawable/email"
+                android:ems="10"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/text_field" />
+
+            <EditText
+                android:id="@+id/register_psw_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/box_border"
+                android:layout_marginTop="@dimen/distance"
+                android:layout_marginRight="@dimen/box_border"
+                android:background="@drawable/inputs"
+                android:drawableStart="@drawable/password"
+                android:ems="10"
+                android:hint="@string/psw"
+                android:inputType="textPassword"
+                android:padding="@dimen/text_field" />
+
+            <EditText
+                android:id="@+id/register_confirm_psw_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/box_border"
+                android:layout_marginTop="@dimen/distance"
+                android:layout_marginRight="@dimen/box_border"
+                android:background="@drawable/inputs"
+                android:drawableStart="@drawable/password"
+                android:ems="10"
+                android:hint="@string/confirm_psw"
+                android:inputType="textPassword"
+                android:padding="@dimen/text_field" />
+
+            <Button
+                android:id="@+id/register_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/box_border"
+                android:layout_marginTop="@dimen/distance"
+                android:layout_marginRight="@dimen/box_border"
+                android:background="@drawable/button"
+                android:padding="@dimen/btn"
+                android:text="@string/register"
+                android:textSize="@dimen/btn_text" />
+        </LinearLayout>
+    </ScrollView>
 
 
-    <EditText
-        android:id="@+id/register_psw_field"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/register_email_field"
-        android:layout_marginLeft="@dimen/box_border"
-        android:layout_marginTop="@dimen/distance"
-        android:layout_marginRight="@dimen/box_border"
-        android:background="@drawable/inputs"
-        android:drawableStart="@drawable/password"
-        android:ems="10"
-        android:hint="@string/psw"
-        android:inputType="textPassword"
-        android:padding="@dimen/text_field" />
-
-
-    <EditText
-        android:id="@+id/register_confirm_psw_field"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/register_psw_field"
-        android:layout_marginLeft="@dimen/box_border"
-        android:layout_marginTop="@dimen/distance"
-        android:layout_marginRight="@dimen/box_border"
-        android:background="@drawable/inputs"
-        android:drawableStart="@drawable/password"
-        android:ems="10"
-        android:hint="@string/confirm_psw"
-        android:inputType="textPassword"
-        android:padding="@dimen/text_field" />
-
-
-    <Button
-        android:id="@+id/register_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/register_confirm_psw_field"
-        android:layout_marginLeft="@dimen/box_border"
-        android:layout_marginTop="@dimen/distance"
-        android:layout_marginRight="@dimen/box_border"
-        android:background="@drawable/button"
-        android:padding="@dimen/btn"
-        android:text="@string/register"
-        android:textSize="@dimen/btn_text" />
 </RelativeLayout>
