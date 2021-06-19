@@ -127,7 +127,7 @@ class SetupActivity : AppCompatActivity() {
                 }
                 else{
                     var message = it.exception?.message;
-                    Toast.makeText(this, "Error occured: " + message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Error occured: $message", Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                 }
             }

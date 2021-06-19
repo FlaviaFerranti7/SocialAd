@@ -104,7 +104,7 @@ class PostActivity : AppCompatActivity() {
                     } else false
                     if(!connected){
                         SendUserToMainActivity();
-                        Toast.makeText(this@PostActivity, "You have lost connection, the post will be created once your reconnect", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this@PostActivity, "You have lost connection, the post will be created once your reconnect", Toast.LENGTH_LONG).show();
                         loadingBar.dismiss();
                     }
 

@@ -75,10 +75,6 @@ class MainActivity : AppCompatActivity() {
                     SendUserToProfileActivity()
                     true
                 }
-                R.id.nav_home -> {
-                    Toast.makeText(this, "HOME", Toast.LENGTH_SHORT).show();
-                    true
-                }
                 R.id.nav_search -> {
                     SendUserToSearchActivity()
                     true
@@ -99,10 +95,6 @@ class MainActivity : AppCompatActivity() {
                     SendUserToLoginActivity();
                     true
                 }
-                R.id.nav_post -> {
-                    SendUserToPostActivity();
-                    true
-                }
                 else -> false
             }
         }
@@ -116,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         } else false
 
         if(!connected){
-            Toast.makeText(this, "You are not connect to Internet!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "You are not connect to Internet!", Toast.LENGTH_LONG).show()
         }
 
         main_add_post.setOnClickListener {

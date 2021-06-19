@@ -71,7 +71,7 @@ class RegisterActivity : AppCompatActivity() {
                         else{
                             loadingBar.dismiss();
                             var message = it.exception?.message;
-                            Toast.makeText(this, "Error occurred: " + message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Error occurred: $message", Toast.LENGTH_SHORT).show();
                         }
                     }
         }

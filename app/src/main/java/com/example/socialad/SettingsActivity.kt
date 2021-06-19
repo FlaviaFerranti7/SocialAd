@@ -10,6 +10,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
@@ -91,7 +92,7 @@ class SettingsActivity : AppCompatActivity() {
                 true
             } else false
             if(!connected){
-                Toast.makeText(this, "You have lost connection, the info will be updated once your reconnect", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "You have lost connection, the info will be updated once your reconnect", Toast.LENGTH_LONG).show();
                 SendUserToMainActivity();
                 loadingBar.dismiss();
             }
@@ -116,10 +117,10 @@ class SettingsActivity : AppCompatActivity() {
                                             val post : Posts? = snapshot.getValue(Posts::class.java);
                                             postUserRef.child(snapshot.key!!).child("profileImage").setValue(u).addOnCompleteListener {
                                                 if(it.isSuccessful){
-                                                    Toast.makeText(this@SettingsActivity, "All posts updated", Toast.LENGTH_SHORT).show();
+                                                    Log.d(".Settings", "post updated")
                                                 }
                                                 else{
-                                                    Toast.makeText(this@SettingsActivity, "An error occurred, please try again", Toast.LENGTH_SHORT).show();
+                                                    Log.d(".Settings", "error updating post");
                                                 }
                                             }
 
@@ -206,7 +207,7 @@ class SettingsActivity : AppCompatActivity() {
             true
         } else false
         if(!connected){
-            Toast.makeText(this, "You have lost connection, the info will be updated once your reconnect", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You have lost connection, the info will be updated once your reconnect", Toast.LENGTH_LONG).show();
             SendUserToMainActivity();
         }
 
@@ -224,10 +225,10 @@ class SettingsActivity : AppCompatActivity() {
                             val post : Posts? = snapshot.getValue(Posts::class.java);
                             postUserRef.child(snapshot.key!!).child("fullname").setValue(fullName).addOnCompleteListener {
                                 if(it.isSuccessful){
-                                    Toast.makeText(this@SettingsActivity, "All posts updated", Toast.LENGTH_SHORT).show();
+                                    Log.d(".Settings", "post updated")
                                 }
                                 else{
-                                    Toast.makeText(this@SettingsActivity, "An error occurred, please try again", Toast.LENGTH_SHORT).show();
+                                    Log.d(".Settings", "error")
                                 }
                             }
 

@@ -1,6 +1,7 @@
 package com.example.socialad
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,6 +43,9 @@ class FindUsersActivity : AppCompatActivity() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 val temp: MutableList<Users> = ArrayList()
+                if(!snapshot.hasChildren()){
+                    Toast.makeText(this@FindUsersActivity, "No result found", Toast.LENGTH_SHORT).show();
+                }
                 for( ds in snapshot.children) {
                     val user: Users? = ds.getValue(Users::class.java);
                     if (user != null) {

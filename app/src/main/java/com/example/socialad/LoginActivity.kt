@@ -124,7 +124,7 @@ class LoginActivity : AppCompatActivity() {
                         else{
                             loadingBar.dismiss();
                             var message = it.exception?.message;
-                            Toast.makeText(this, "Error occured: " + message, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Error occured: $message", Toast.LENGTH_SHORT).show();
                         }
                     }
         }
