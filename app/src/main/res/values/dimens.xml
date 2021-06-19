@@ -15,5 +15,7 @@
     <dimen name="btn_width">150dp</dimen>
     <dimen name="clickable_icon">48dp</dimen>
     <dimen name="setting_text_margin">40dp</dimen>
+    <dimen name="search_length">280dp</dimen>
+    <dimen name="search_height">60dp</dimen>
 
 </resources>

@@ -32,7 +32,7 @@ class ProfileActivity : AppCompatActivity() {
 
         val mToolbar : Toolbar = profile_page_toolbar as Toolbar
         setSupportActionBar(mToolbar);
-        supportActionBar?.title = " Profile";
+        supportActionBar?.title = "Profile";
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
@@ -78,7 +78,7 @@ class ProfileActivity : AppCompatActivity() {
                 .orderByChild("uid")
                 .equalTo(currentUserId)
                 .limitToLast(100)
-        
+
         postsQuery.keepSynced(true)
 
         val options = FirebaseRecyclerOptions.Builder<Posts>()
