@@ -16,7 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/login_logo_img"
@@ -105,7 +105,20 @@
                     android:src="@drawable/google" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/forget_password_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/btn_text"
+                android:text="Forget password? Click here"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                tools:ignore="RtlCompat" />
+
         </LinearLayout>
+
     </ScrollView>
 
 

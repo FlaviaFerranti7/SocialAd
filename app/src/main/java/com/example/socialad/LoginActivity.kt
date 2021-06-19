@@ -38,6 +38,10 @@ class LoginActivity : AppCompatActivity() {
         login_button.setOnClickListener {
             AllowingUserToLogin();
         }
+
+        forget_password_link.setOnClickListener {
+            startActivity(Intent(this, ResetPasswordActivity::class.java))
+        }
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
