@@ -20,6 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SocialAd">
+        <activity android:name=".ListChatActivity"
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".ChatActivity"
             android:parentActivityName=".MainActivity" />

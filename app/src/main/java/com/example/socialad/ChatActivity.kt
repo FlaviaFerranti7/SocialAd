@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
@@ -63,6 +64,7 @@ class ChatActivity : AppCompatActivity() {
             receivername = extras.getString("username").toString();
             receiverimage = extras.getString("userimage").toString();
         }
+
         receiverNameText.text = receivername
         Picasso.get().load(receiverimage).placeholder(R.drawable.profile_img).into(receiverProfileImage);
 

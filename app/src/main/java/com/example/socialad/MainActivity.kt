@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_messages -> {
-                    Toast.makeText(this, "MESSAGE", Toast.LENGTH_SHORT).show();
+                    SendUserToListChatActivity();
                     true
                 }
                 R.id.nav_settings -> {
@@ -213,6 +213,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun SendUserToSearchActivity() {
         val searchIntent = Intent(this, FindUsersActivity::class.java);
+        startActivity(searchIntent);
+    }
+
+    private fun SendUserToListChatActivity() {
+        val searchIntent = Intent(this, ListChatActivity::class.java);
         startActivity(searchIntent);
     }
 
