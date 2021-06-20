@@ -68,6 +68,30 @@ class ClickPostActivity : AppCompatActivity() {
                     click_edit.setOnClickListener {
                         EditCurrentPost(description);
                     }
+                    click_post_user_name.setOnClickListener {
+                        if(databaseUserId != currentUserId){
+                            val option = arrayOf<CharSequence>(username + "'s Profile", "Send Message");
+                            val builder = android.app.AlertDialog.Builder(this@ClickPostActivity);
+                            builder.setTitle("Select Options");
+
+                            builder.setItems(option) { dialog, which ->
+                                if (which == 0) {
+                                    val intent = Intent(this@ClickPostActivity, ProfileActivity::class.java)
+                                    intent.putExtra("user", databaseUserId)
+                                    startActivity(intent)
+                                }
+                                if (which == 1) {
+                                    Toast.makeText(this@ClickPostActivity, "send message", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                            builder.create().show();
+                        }
+                        else {
+                            val intent = Intent(this@ClickPostActivity, ProfileActivity::class.java)
+                            intent.putExtra("user", databaseUserId)
+                            startActivity(intent)
+                        }
+                    }
                 }
             }
             override fun onCancelled(error: DatabaseError) {

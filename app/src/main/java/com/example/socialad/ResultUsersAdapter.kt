@@ -1,15 +1,22 @@
 package com.example.socialad
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ResultUsersAdapter(private val dataSet: MutableList<Users>) : RecyclerView.Adapter<ResultUsersAdapter.ViewHolder>() {
+
+    private lateinit var currentUserId: String;
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val fullname: TextView;
@@ -42,10 +49,27 @@ class ResultUsersAdapter(private val dataSet: MutableList<Users>) : RecyclerView
         Picasso.get().load(dataSet[position].profileImage).placeholder(R.drawable.profile_img).into(viewHolder.image);
 
         viewHolder.itemView.setOnClickListener { v ->
-            val intent = Intent(v.context, ProfileActivity::class.java)
-            intent.putExtra("user", dataSet[position].key)
-            v.context.startActivity(intent)
-
+            if(dataSet[position].key != FirebaseAuth.getInstance().currentUser!!.uid) {
+                val option = arrayOf<CharSequence>(dataSet[position].fullname + "'s Profile", "Send Message");
+                val builder = AlertDialog.Builder(viewHolder.itemView.context);
+                builder.setTitle("Select Options");
+                builder.setItems(option) { dialog, which ->
+                    if (which == 0) {
+                        val intent = Intent(v.context, ProfileActivity::class.java)
+                        intent.putExtra("user", dataSet[position].key)
+                        v.context.startActivity(intent)
+                    }
+                    if (which == 1) {
+                        Toast.makeText(viewHolder.itemView.context, "send message", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                builder.create().show();
+            }
+            else{
+                val intent = Intent(v.context, ProfileActivity::class.java)
+                intent.putExtra("user", dataSet[position].key)
+                v.context.startActivity(intent)
+            }
         }
     }
 
