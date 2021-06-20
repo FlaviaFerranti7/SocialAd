@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
@@ -17,6 +18,7 @@ class PostsAdapter(private val dataSet: MutableList<Posts>) : RecyclerView.Adapt
         val date: TextView;
         val time: TextView;
         val description: TextView;
+        val place: TextView;
         val profileImage: CircleImageView;
 
         init {
@@ -25,6 +27,7 @@ class PostsAdapter(private val dataSet: MutableList<Posts>) : RecyclerView.Adapt
             date = view.findViewById(R.id.post_date)
             time = view.findViewById(R.id.post_time)
             description = view.findViewById(R.id.post_description)
+            place = view.findViewById(R.id.post_location)
             profileImage = view.findViewById(R.id.post_profile_image)
         }
     }
@@ -43,11 +46,27 @@ class PostsAdapter(private val dataSet: MutableList<Posts>) : RecyclerView.Adapt
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.place.visibility = View.INVISIBLE;
+
         holder.description.text = dataSet[position].description;
         holder.date.text = "   " + dataSet[position].date
         holder.time.text = "  -  " + dataSet[position].time
         holder.fullname.text = dataSet[position].fullname
         Picasso.get().load(dataSet[position].profileImage).placeholder(R.drawable.profile_img).into(holder.profileImage);
+
+        if(dataSet[position].place!=""){
+            holder.place.visibility = View.VISIBLE;
+            holder.place.setOnClickListener {
+                val intent = Intent(it.context, MapsActivity::class.java)
+                intent.putExtra("latitude", dataSet[position].latitude)
+                intent.putExtra("longitude", dataSet[position].longitude)
+                intent.putExtra("place", dataSet[position].place)
+                it.context.startActivity(intent)
+            }
+        }
+        else{
+            holder.place.visibility = View.INVISIBLE;
+        }
 
         holder.itemView.setOnClickListener { v ->
             val intent = Intent(v.context, ClickPostActivity::class.java)

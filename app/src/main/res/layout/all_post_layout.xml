@@ -91,6 +91,16 @@
             android:padding="@dimen/border"
             android:textSize="@dimen/text"
             android:textColor="@android:color/black"/>
+        <TextView
+            android:id="@+id/post_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Click here to view location"
+            android:layout_marginLeft="@dimen/border"
+            android:layout_marginRight="@dimen/border"
+            android:padding="@dimen/border"
+            android:textSize="@dimen/text"
+            android:textColor="@android:color/holo_blue_light"/>
 
         <LinearLayout
             android:layout_width="fill_parent"

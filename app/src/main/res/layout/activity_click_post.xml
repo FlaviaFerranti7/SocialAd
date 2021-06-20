@@ -15,7 +15,6 @@
         android:layout_below="@id/click_post_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/box_border"
         android:orientation="horizontal"
         android:layout_marginBottom="@dimen/border"
         android:layout_marginLeft="@dimen/distance"
@@ -89,26 +88,68 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start|top"
-        android:padding="@dimen/btn"
         android:textColor="@color/black"
         android:textSize="@dimen/text"
-        android:layout_marginBottom="@dimen/border"
         android:layout_marginLeft="@dimen/distance"
         android:layout_marginRight="@dimen/distance"
         android:layout_marginTop="@dimen/distance"/>
+    <TextView
+        android:layout_below="@id/click_post_description"
+        android:id="@+id/click_post_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Click here to view location"
+        android:layout_marginLeft="@dimen/distance"
+        android:layout_marginRight="@dimen/distance"
+        android:textSize="@dimen/text"
+        android:textColor="@android:color/holo_blue_light"/>
 
     <LinearLayout
+        android:id="@+id/click_division"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/border"
-        android:layout_below="@id/click_post_description"
+        android:layout_below="@id/click_post_location"
         android:background="@android:color/darker_gray"
         android:layout_marginLeft="@dimen/distance"
         android:layout_marginRight="@dimen/distance"/>
 
     <LinearLayout
+        android:id="@+id/click_place_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/click_post_description"
+        android:orientation="horizontal"
+        android:layout_below="@id/click_division"
+        android:layout_marginTop="@dimen/distance"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/change_place_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Place"
+            android:layout_marginLeft="@dimen/box_border"
+            android:background="@drawable/button"
+            android:textSize="@dimen/btn_text"
+            android:layout_marginRight="@dimen/distance"/>
+
+        <TextView
+            android:id="@+id/click_location_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/box_border"
+            android:layout_weight="1"
+            android:background="@drawable/inputs"
+            android:padding="@dimen/distance"
+            android:text="Your location"
+            android:textSize="@dimen/text"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/click_place_btn"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         android:padding="@dimen/box_border"
@@ -127,7 +168,7 @@
             android:layout_marginRight="@dimen/box_border"
             android:background="@drawable/button"
             android:padding="@dimen/btn"
-            android:text="  Edit post  "
+            android:text="  Edit text  "
             android:textSize="@dimen/btn_text"
             android:textStyle="bold" />
 

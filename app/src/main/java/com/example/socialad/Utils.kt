@@ -3,14 +3,14 @@ package com.example.socialad
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
+import android.location.Address
+import android.location.Geocoder
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import java.io.File
-import java.io.FileOutputStream
+import com.google.android.gms.maps.model.LatLng
+import java.io.IOException
 
 
 object Utils {
@@ -40,5 +40,23 @@ object Utils {
                 setupUI(innerView, activity)
             }
         }
+    }
+
+    fun getLocationFromAddress( context: Context?, strAddress: String? ): LatLng? {
+        val coder = Geocoder(context)
+        val address: List<Address>?
+        var p1: LatLng? = null
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5)
+            if (address == null) {
+                return null
+            }
+            val location: Address = address[0]
+            p1 = LatLng(location.getLatitude(), location.getLongitude())
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+        }
+        return p1
     }
 }

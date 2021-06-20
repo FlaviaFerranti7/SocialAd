@@ -1,6 +1,7 @@
 package com.example.socialad
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -13,6 +14,12 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.AutocompleteActivity
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_post.*
@@ -34,6 +41,12 @@ class PostActivity : AppCompatActivity() {
     private lateinit var postname: String;
 
     private lateinit var listener : ValueEventListener;
+
+    private val AUTOCOMPLETE_REQUEST_CODE = 1
+    private var latitude : String = "";
+    private var longitude : String = "";
+    private var placename : String = "";
+
 
 
     @SuppressLint("SimpleDateFormat")
@@ -58,10 +71,54 @@ class PostActivity : AppCompatActivity() {
         saveCurrentDate = SimpleDateFormat("MM-dd-yyyy").format(Calendar.getInstance().time)
         postname = saveCurrentDate + saveCurrentTime
 
+        if (!Places.isInitialized()) {
+            Places.initialize(applicationContext, "AIzaSyBjopnsGwv8GcZBAvVoRv5Dqtu4yw4Q5R4");
+        }
+
+        add_place_btn.setOnClickListener {
+            // Set the fields to specify which types of place data to
+            // return after the user has made a selection.
+            val fields = listOf(Place.Field.LAT_LNG, Place.Field.NAME)
+
+            // Start the autocomplete intent.
+            val intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
+                .build(this)
+            startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
+
+        }
 
         add_post_btn.setOnClickListener {
             ValidatePost();
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    data?.let {
+                        val place = Autocomplete.getPlaceFromIntent(data)
+                        Log.i(".Post", "Place: ${place.name}, ${place.latLng}")
+                        location_text.text = place.name
+                        latitude = place.latLng?.latitude.toString()!!
+                        longitude = place.latLng?.longitude.toString()!!
+                        placename = place.name.toString()
+                    }
+                }
+                AutocompleteActivity.RESULT_ERROR -> {
+                    // TODO: Handle the error.
+                    data?.let {
+                        val status = Autocomplete.getStatusFromIntent(data)
+                        Log.i(".Post", status.statusMessage!!)
+                    }
+                }
+                Activity.RESULT_CANCELED -> {
+                    // The user canceled the operation.
+                }
+            }
+            return
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun ValidatePost() {
@@ -94,6 +151,16 @@ class PostActivity : AppCompatActivity() {
                     postMap.put("fullname", userFullName);
                     postMap.put("profileImage", userProfileImage);
                     postMap.put("description", d);
+                    if(placename!= "") {
+                        postMap.put("latitude", latitude);
+                        postMap.put("longitude", longitude);
+                        postMap.put("place", placename);
+                    }
+                    else{
+                        postMap.put("place", "");
+                        postMap.put("latitude", "");
+                        postMap.put("longitude", "");
+                    }
 
                     var connected = false
                     val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
