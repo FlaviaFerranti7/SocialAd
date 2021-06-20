@@ -32,17 +32,19 @@
             android:ems="10"
             android:hint="Search"
             android:inputType="textMultiLine"
-            android:padding="@dimen/text_field"/>
+            android:padding="@dimen/text_field"
+            android:layout_weight="1"/>
 
         <ImageButton
             android:id="@+id/find_btn"
             android:layout_width="@dimen/clickable_icon"
             android:layout_height="@dimen/search_height"
-            android:layout_marginTop="@dimen/distance"
             android:layout_marginLeft="@dimen/box_border"
+            android:layout_marginTop="@dimen/distance"
+            android:layout_marginRight="@dimen/distance"
             android:layout_toEndOf="@id/find_box_input"
             android:background="@drawable/inputs"
-            android:src="@drawable/search"/>
+            android:src="@drawable/search" />
     </LinearLayout>
 
     <LinearLayout

@@ -60,8 +60,11 @@ class ResultUsersAdapter(private val dataSet: MutableList<Users>) : RecyclerView
                         v.context.startActivity(intent)
                     }
                     if (which == 1) {
-                        Toast.makeText(viewHolder.itemView.context, "send message", Toast.LENGTH_SHORT).show()
-                    }
+                        val intent = Intent(v.context, ChatActivity::class.java)
+                        intent.putExtra("user", dataSet[position].key)
+                        intent.putExtra("username", dataSet[position].fullname)
+                        intent.putExtra("userimage", dataSet[position].profileImage)
+                        v.context.startActivity(intent)}
                 }
                 builder.create().show();
             }

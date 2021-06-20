@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/design_default_color_primary">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/chat_custom_profile_image"
+        android:layout_width="@dimen/clickable_icon"
+        android:layout_height="@dimen/clickable_icon"
+        android:src="@drawable/profile_img"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/distance"
+        android:cropToPadding="true"/>
+    <TextView
+        android:id="@+id/chat_custom_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/background_light"
+        android:textSize="@dimen/btn_text"
+        android:layout_marginTop="@dimen/distance"
+        android:text="Display name"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+
+
+</RelativeLayout>

@@ -81,8 +81,11 @@ class ClickPostActivity : AppCompatActivity() {
                                     startActivity(intent)
                                 }
                                 if (which == 1) {
-                                    Toast.makeText(this@ClickPostActivity, "send message", Toast.LENGTH_SHORT).show()
-                                }
+                                    val intent = Intent(this@ClickPostActivity, ChatActivity::class.java)
+                                    intent.putExtra("user", databaseUserId)
+                                    intent.putExtra("username", username)
+                                    intent.putExtra("userimage", profileImage)
+                                    startActivity(intent)}
                             }
                             builder.create().show();
                         }
