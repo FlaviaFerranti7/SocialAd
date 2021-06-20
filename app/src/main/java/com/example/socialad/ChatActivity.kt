@@ -11,13 +11,14 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.activity_click_post.*
+import kotlinx.android.synthetic.main.activity_find_users.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -69,10 +70,42 @@ class ChatActivity : AppCompatActivity() {
         senderId = mAuth.currentUser!!.uid
         rootRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference
 
+        chat_list_users.setHasFixedSize(true);
+        val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this);
+        chat_list_users.layoutManager = linearLayoutManager;
+
+
         chat_send_message.setOnClickListener {
             SendMessage();
         }
 
+        FetchMessages();
+
+    }
+
+    private fun FetchMessages() {
+        rootRef.child("Messages").child(senderId).child(receiverId).addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val temp: MutableList<Messages> = ArrayList()
+                if(!snapshot.hasChildren()){
+                    Toast.makeText(this@ChatActivity, "No Messages yet", Toast.LENGTH_SHORT).show();
+                }
+                for( ds in snapshot.children) {
+                    val message: Messages? = ds.getValue(Messages::class.java);
+                    if (message != null) {
+                        temp.add(message);
+                    }
+                }
+                val messageAdapter = MessagesAdapter(temp)
+                messageAdapter.notifyDataSetChanged();
+                chat_list_users.adapter = messageAdapter;
+            }
+
+        })
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -104,10 +137,12 @@ class ChatActivity : AppCompatActivity() {
             rootRef.updateChildren(messageBodyDetailsMap).addOnCompleteListener {
                 if(it.isSuccessful){
                     Toast.makeText(this, "Message send successfully", Toast.LENGTH_SHORT).show();
+                    chat_input_message.setText("");
                 }
                 else{
                     val error = it.exception?.message
                     Toast.makeText(this, "Error occured: $error", Toast.LENGTH_SHORT).show();
+                    chat_input_message.setText("");
                 }
             }
         }

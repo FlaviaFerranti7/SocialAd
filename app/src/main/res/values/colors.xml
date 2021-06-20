@@ -13,4 +13,5 @@
     <color name="h_red">#9C2F21</color>
     <color name="h_yellow">#D4BC24</color>
     <color name="h_black">#1C1612</color>
+    <color name="sender_color">#A0179E</color>
 </resources>
