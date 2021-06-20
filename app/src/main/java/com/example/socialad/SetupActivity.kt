@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -13,6 +14,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_setup.*
+
 
 class SetupActivity : AppCompatActivity() {
 
@@ -97,6 +99,8 @@ class SetupActivity : AppCompatActivity() {
         var username : String = setup_username.text.toString();
         var fullname : String = setup_name.text.toString();
         var city : String = setup_location.text.toString();
+        val radioButton : RadioButton = radiogroup.findViewById(radiogroup.checkedRadioButtonId)
+        var status = radioButton.text.toString()
 
         if(TextUtils.isEmpty(username)){
             Toast.makeText(this, "Please write your username", Toast.LENGTH_SHORT).show();
@@ -106,6 +110,9 @@ class SetupActivity : AppCompatActivity() {
         }
         if(TextUtils.isEmpty(city)){
             Toast.makeText(this, "Please write your city", Toast.LENGTH_SHORT).show();
+        }
+        if (radiogroup.checkedRadioButtonId == -1){
+            Toast.makeText(this, "Please select your status", Toast.LENGTH_SHORT).show();
         }
         else{
             loadingBar.setTitle("Saving information");
@@ -117,7 +124,7 @@ class SetupActivity : AppCompatActivity() {
             userMap.put("username", username);
             userMap.put("fullname", fullname);
             userMap.put("country", city);
-            userMap.put("status", "alunno");
+            userMap.put("status", status);
 
             usersRef.updateChildren(userMap).addOnCompleteListener {
                 if(it.isSuccessful){

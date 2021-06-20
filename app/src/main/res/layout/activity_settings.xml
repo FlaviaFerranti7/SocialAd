@@ -78,26 +78,44 @@
                 android:textStyle="bold"
                 android:hint="City"/>
 
-            <EditText
-                android:id="@+id/settings_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/settings_country"
+            <TextView
+                android:id="@+id/settings_status_text"
+                android:layout_below="@+id/settings_country"
                 android:layout_marginTop="@dimen/distance"
                 android:layout_marginLeft="@dimen/setting_text_margin"
                 android:layout_marginRight="@dimen/setting_text_margin"
-                android:background="@drawable/inputs"
-                android:padding="@dimen/text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status:"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text"
-                android:textStyle="bold"
-                android:hint="Status"/>
+                android:textStyle="bold"/>
+
+            <RadioGroup
+                android:layout_below="@id/settings_status_text"
+                android:id="@+id/settings_radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/setting_text_margin"
+                android:layout_marginRight="@dimen/setting_text_margin">
+                <RadioButton android:id="@+id/settings_teacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Teacher"
+                    android:layout_marginRight="@dimen/box_border"/>
+                <RadioButton android:id="@+id/settings_student"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Student"
+                    android:layout_marginLeft="@dimen/box_border"/>
+            </RadioGroup>
 
             <Button
                 android:id="@+id/settings_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/settings_status"
+                android:layout_below="@id/settings_radiogroup"
                 android:layout_marginLeft="@dimen/box_border"
                 android:layout_marginTop="@dimen/distance"
                 android:layout_marginRight="@dimen/box_border"

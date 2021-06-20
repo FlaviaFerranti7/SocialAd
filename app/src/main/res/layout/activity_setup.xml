@@ -71,6 +71,34 @@
                 android:inputType="textMultiLine"
                 android:padding="@dimen/text_field" />
 
+            <TextView
+                android:layout_marginTop="@dimen/distance"
+                android:layout_marginLeft="@dimen/box_border"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text"
+                android:textStyle="bold"/>
+
+            <RadioGroup
+                android:id="@+id/radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/box_border">
+                <RadioButton android:id="@+id/teacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Teacher"
+                    android:layout_marginRight="@dimen/box_border"/>
+                <RadioButton android:id="@+id/student"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Student"
+                    android:layout_marginLeft="@dimen/box_border"/>
+            </RadioGroup>
+
             <Button
                 android:id="@+id/setup_save_btn"
                 android:layout_width="@dimen/btn_width"

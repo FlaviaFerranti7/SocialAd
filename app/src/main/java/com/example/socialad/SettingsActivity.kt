@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
@@ -67,7 +68,14 @@ class SettingsActivity : AppCompatActivity() {
                 settings_username.setText(myUsername);
                 settings_fullname.setText(myFullName);
                 settings_country.setText(myCity);
-                settings_status.setText(myStatus);
+                if(myStatus == "Student"){
+                    val radioButton : RadioButton = findViewById(R.id.settings_student)
+                    radioButton.isChecked = true
+                }
+                else{
+                    val radioButton : RadioButton = findViewById(R.id.settings_teacher)
+                    radioButton.isChecked = true
+                }
             }
         })
 
@@ -170,7 +178,8 @@ class SettingsActivity : AppCompatActivity() {
         val fullName= settings_fullname.text.toString();
         val username= settings_username.text.toString();
         val city = settings_country.text.toString();
-        val status = settings_status.text.toString();
+        val radioButton : RadioButton = settings_radiogroup.findViewById(settings_radiogroup.checkedRadioButtonId)
+        var status = radioButton.text.toString()
 
         if(TextUtils.isEmpty(fullName)){
             Toast.makeText(this, "Please write your profile name", Toast.LENGTH_SHORT).show();
@@ -180,9 +189,6 @@ class SettingsActivity : AppCompatActivity() {
         }
         else if(TextUtils.isEmpty(city)){
             Toast.makeText(this, "Please write your city", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(status)){
-            Toast.makeText(this, "Please write your status", Toast.LENGTH_SHORT).show();
         }
         else{
             UpdateAccountInfo(fullName, username, city, status)
