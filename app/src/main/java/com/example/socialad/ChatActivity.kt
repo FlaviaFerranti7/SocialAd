@@ -2,6 +2,8 @@ package com.example.socialad
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -117,6 +119,7 @@ class ChatActivity : AppCompatActivity() {
             Toast.makeText(this, "Please type a message first", Toast.LENGTH_SHORT).show();
         }
         else {
+
             val message_sender_ref : String = "Messages/$senderId/$receiverId";
             val message_receiver_ref : String = "Messages/$receiverId/$senderId";
 
@@ -135,6 +138,18 @@ class ChatActivity : AppCompatActivity() {
             var messageBodyDetailsMap = HashMap<String, Any>();
             messageBodyDetailsMap.put(message_sender_ref+"/"+message_push_id , messageBodyTextMap);
             messageBodyDetailsMap.put(message_receiver_ref+"/"+message_push_id , messageBodyTextMap);
+
+            var connected = false
+            val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            connected = if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)!!.state == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)!!.state == NetworkInfo.State.CONNECTED) {
+                //we are connected to a network
+                true
+            } else false
+            if(!connected){
+                Toast.makeText(this, "You have lost connection, the message will be send once your reconnect", Toast.LENGTH_LONG).show();
+                chat_input_message.setText("");
+            }
 
             rootRef.updateChildren(messageBodyDetailsMap).addOnCompleteListener {
                 if(it.isSuccessful){
