@@ -10,6 +10,8 @@ class Posts {
     var place: String? = "";
     var latitude: String? = "";
     var longitude: String? = "";
+    var city: String? = "";
+    var type: String? = "";
 
 
     constructor(
@@ -21,7 +23,9 @@ class Posts {
         profileImage: String,
         place: String,
         latitude: String,
-        longitude: String) {
+        longitude: String,
+        city: String,
+        type: String) {
         this.uid = uid
         this.time = time
         this.date = date
@@ -31,6 +35,8 @@ class Posts {
         this.place = place
         this.latitude = latitude
         this.longitude = longitude
+        this.city = city
+        this.type = type
     }
 
     constructor()

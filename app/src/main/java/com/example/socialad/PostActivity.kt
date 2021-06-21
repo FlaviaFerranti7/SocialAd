@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.MenuItem
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -23,6 +24,7 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_post.*
+import kotlinx.android.synthetic.main.activity_setup.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
@@ -126,23 +128,29 @@ class PostActivity : AppCompatActivity() {
         if(TextUtils.isEmpty(description)){
             Toast.makeText(this, "Please write something before posting ", Toast.LENGTH_SHORT).show();
         }
+        if (post_radiogroup.checkedRadioButtonId == -1){
+            Toast.makeText(this, "Please select the post typology", Toast.LENGTH_SHORT).show();
+        }
         else{
             loadingBar.setTitle("Saving post");
             loadingBar.setMessage("Please wait while we are saving your new post");
             loadingBar.show();
             loadingBar.setCanceledOnTouchOutside(true);
 
-            StoringPostToFirebaseDatabase(description);
+            val radioButton : RadioButton = post_radiogroup.findViewById(post_radiogroup.checkedRadioButtonId)
+            val typology = radioButton.text.toString()
+            StoringPostToFirebaseDatabase(description, typology);
         }
     }
 
-    private fun StoringPostToFirebaseDatabase(d: String) {
+    private fun StoringPostToFirebaseDatabase(d: String, t:String) {
         listener = usersRef.child(currentUserId).addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0.exists()){
                     val userFullName : String = p0.child("fullname").value.toString();
                     val userProfileImage : String = p0.child("profileImage").value.toString();
+                    val userCity : String = p0.child("country").value.toString();
 
                     var postMap = HashMap<String, Any>();
                     postMap.put("uid", currentUserId);
@@ -150,7 +158,9 @@ class PostActivity : AppCompatActivity() {
                     postMap.put("time", saveCurrentTime);
                     postMap.put("fullname", userFullName);
                     postMap.put("profileImage", userProfileImage);
+                    postMap.put("city", userCity);
                     postMap.put("description", d);
+                    postMap.put("type", t);
                     if(placename!= "") {
                         postMap.put("latitude", latitude);
                         postMap.put("longitude", longitude);
