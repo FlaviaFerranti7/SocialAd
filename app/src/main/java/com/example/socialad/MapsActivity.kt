@@ -1,14 +1,11 @@
 package com.example.socialad
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -45,7 +42,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
-        
+
         resetSteps()
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -62,8 +59,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+    }
 
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
 
+        // Add a marker in Sydney and move the camera
+        val location = LatLng(latitude, longitude)
+        mMap.addMarker(MarkerOptions().position(location).title(placename))
+
+        val zoomLevel = 14.0f //This goes up to 21
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoomLevel))
     }
 
     override fun onResume() {
@@ -75,15 +81,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         } else {
             sensorManager?.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI)
         }
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-
-        // Add a marker in Sydney and move the camera
-        val location = LatLng(latitude, longitude)
-        mMap.addMarker(MarkerOptions().position(location).title(placename))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
     }
 
     fun resetSteps() {
