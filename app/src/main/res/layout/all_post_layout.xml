@@ -82,6 +82,19 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/post_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Post type"
+            android:layout_marginLeft="@dimen/border"
+            android:layout_marginRight="@dimen/border"
+            android:padding="@dimen/border"
+            android:textSize="@dimen/text"
+            android:textColor="@android:color/black"
+            android:drawableLeft="@drawable/tag"
+            android:drawablePadding="@dimen/box_border"/>
+
+        <TextView
             android:id="@+id/post_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,7 +104,8 @@
             android:padding="@dimen/border"
             android:textSize="@dimen/text"
             android:textColor="@android:color/black"
-            android:drawableLeft="@drawable/text"/>
+            android:drawableLeft="@drawable/text"
+            android:drawablePadding="@dimen/box_border"/>
         <TextView
             android:id="@+id/post_location"
             android:layout_width="match_parent"
@@ -101,7 +115,8 @@
             android:layout_marginLeft="@dimen/border"
             android:layout_marginRight="@dimen/border"
             android:padding="@dimen/border"
-            android:textSize="@dimen/text"/>
+            android:textSize="@dimen/text"
+            android:drawablePadding="@dimen/box_border"/>
 
         <LinearLayout
             android:layout_width="fill_parent"

@@ -70,6 +70,7 @@ class ClickPostActivity : AppCompatActivity() {
                     var date = snapshot.child("date").value.toString()
                     var time = snapshot.child("time").value.toString()
                     var description = snapshot.child("description").value.toString()
+                    var tag = snapshot.child("type").value.toString()
                     placename = snapshot.child("place").value.toString()
                     latitude = snapshot.child("latitude").value.toString()
                     longitude = snapshot.child("longitude").value.toString()
@@ -96,6 +97,7 @@ class ClickPostActivity : AppCompatActivity() {
                     click_post_date.text = "   $date";
                     click_post_time.text = "  -  $time";
                     click_post_description.text = description;
+                    click_tag.text = tag;
 
                     if(currentUserId.equals(databaseUserId)){
                         change_place_btn.visibility = View.VISIBLE

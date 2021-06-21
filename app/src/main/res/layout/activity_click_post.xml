@@ -83,17 +83,32 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/click_post_description"
+        android:layout_marginTop="@dimen/distance"
+        android:gravity="start|top"
         android:layout_below="@id/click_post_info"
+        android:id="@+id/click_tag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start|top"
+        android:text="Post type"
+        android:layout_marginLeft="@dimen/distance"
+        android:layout_marginRight="@dimen/distance"
+        android:padding="@dimen/border"
+        android:textSize="@dimen/text"
+        android:textColor="@android:color/black"
+        android:drawableLeft="@drawable/tag"
+        android:drawablePadding="@dimen/box_border"/>
+
+    <TextView
+        android:id="@+id/click_post_description"
+        android:layout_below="@id/click_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textSize="@dimen/text"
         android:layout_marginLeft="@dimen/distance"
         android:layout_marginRight="@dimen/distance"
-        android:layout_marginTop="@dimen/distance"
-        app:drawableLeftCompat="@drawable/text" />
+        app:drawableLeftCompat="@drawable/text"
+        android:drawablePadding="@dimen/box_border"/>
     <TextView
         android:layout_below="@id/click_post_description"
         android:id="@+id/click_post_location"
@@ -103,7 +118,8 @@
         android:layout_marginLeft="@dimen/distance"
         android:layout_marginRight="@dimen/distance"
         android:textSize="@dimen/text"
-        app:drawableLeftCompat="@drawable/location" />
+        app:drawableLeftCompat="@drawable/location"
+        android:drawablePadding="@dimen/box_border"/>
 
     <LinearLayout
         android:id="@+id/click_division"

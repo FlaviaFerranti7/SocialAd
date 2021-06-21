@@ -21,6 +21,7 @@ class PostsAdapter(private val dataSet: MutableList<Posts>) : RecyclerView.Adapt
         val time: TextView;
         val description: TextView;
         val place: TextView;
+        val tag: TextView;
         val profileImage: CircleImageView;
 
         init {
@@ -30,6 +31,7 @@ class PostsAdapter(private val dataSet: MutableList<Posts>) : RecyclerView.Adapt
             time = view.findViewById(R.id.post_time)
             description = view.findViewById(R.id.post_description)
             place = view.findViewById(R.id.post_location)
+            tag = view.findViewById(R.id.post_tag)
             profileImage = view.findViewById(R.id.post_profile_image)
         }
     }
@@ -50,6 +52,7 @@ class PostsAdapter(private val dataSet: MutableList<Posts>) : RecyclerView.Adapt
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.description.text = dataSet[position].description;
+        holder.tag.text = dataSet[position].type;
         holder.date.text = "   " + dataSet[position].date
         holder.time.text = "  -  " + dataSet[position].time
         holder.fullname.text = dataSet[position].fullname
