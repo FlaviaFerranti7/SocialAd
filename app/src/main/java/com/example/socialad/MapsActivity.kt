@@ -1,11 +1,13 @@
 package com.example.socialad
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -31,7 +33,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private var sensor: Sensor? = null
 
     private var running = false
-    private var previousTotalSteps = 0
 
     private var stepCount = 0
     private var MagnitudePrevious = 0.0
@@ -83,6 +84,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         }
     }
 
+    @SuppressLint("SetTextI18n")
     fun resetSteps() {
         tv_stepsTaken = findViewById<Button>(R.id.step_count)
         tv_stepsTaken.setOnClickListener {
@@ -91,9 +93,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
         tv_stepsTaken.setOnLongClickListener {
 
-            tv_stepsTaken.text = 0.toString()
-
-            // This will save the data
+            tv_stepsTaken.text =  "Steps: 0";
+            stepCount = 0
 
             true
         }
@@ -104,6 +105,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onSensorChanged(event: SensorEvent?) {
         if (event != null) {
             if (running) {

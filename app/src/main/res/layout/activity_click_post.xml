@@ -93,7 +93,7 @@
         android:layout_marginLeft="@dimen/distance"
         android:layout_marginRight="@dimen/distance"
         android:layout_marginTop="@dimen/distance"
-        android:drawableLeft="@drawable/text"/>
+        app:drawableLeftCompat="@drawable/text" />
     <TextView
         android:layout_below="@id/click_post_description"
         android:id="@+id/click_post_location"
@@ -103,7 +103,7 @@
         android:layout_marginLeft="@dimen/distance"
         android:layout_marginRight="@dimen/distance"
         android:textSize="@dimen/text"
-        android:drawableLeft="@drawable/location"/>
+        app:drawableLeftCompat="@drawable/location" />
 
     <LinearLayout
         android:id="@+id/click_division"
@@ -112,7 +112,8 @@
         android:layout_below="@id/click_post_location"
         android:background="@android:color/darker_gray"
         android:layout_marginLeft="@dimen/distance"
-        android:layout_marginRight="@dimen/distance"/>
+        android:layout_marginRight="@dimen/distance"
+        android:orientation="horizontal" />
 
     <LinearLayout
         android:id="@+id/click_place_btn"

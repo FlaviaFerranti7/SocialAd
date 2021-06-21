@@ -1,6 +1,7 @@
 package com.example.socialad
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -30,13 +31,15 @@ class FindUsersActivity : AppCompatActivity() {
         allUserDatabaseRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users")
 
         find_btn.setOnClickListener {
-            val value = find_box_input.text.toString()
-            SearchUsers(value);
+            val name = find_name.text.toString()
+            val city = find_city.text.toString()
+            val status = find_status.text.toString()
+            SearchUsers(name, city, status);
         }
     }
 
-    private fun SearchUsers(value: String) {
-        var usersQuery = allUserDatabaseRef.orderByChild("fullname").startAt(value).endAt(value + "\uf8ff").addValueEventListener(object : ValueEventListener {
+    private fun SearchUsers(name: String, city: String, status: String) {
+        var usersQuery = allUserDatabaseRef.orderByChild("fullname").startAt(name).endAt(name + "\uf8ff").addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
 
             }
@@ -49,8 +52,12 @@ class FindUsersActivity : AppCompatActivity() {
                 for( ds in snapshot.children) {
                     val user: Users? = ds.getValue(Users::class.java);
                     if (user != null) {
-                        user.key = ds.key;
-                        temp.add(user);
+                        if((TextUtils.isEmpty(city) && TextUtils.isEmpty(status)) || (TextUtils.isEmpty(city) && !TextUtils.isEmpty(status) && user.status!!.contains(status, ignoreCase = true))
+                                || ( !TextUtils.isEmpty(city) && TextUtils.isEmpty(status) && user.country!!.contains(city, ignoreCase = true))
+                                || ( !TextUtils.isEmpty(city) && !TextUtils.isEmpty(status) && user.status!!.contains(status, ignoreCase = true) && user.country!!.contains(city, ignoreCase = true)) ) {
+                            user.key = ds.key;
+                            temp.add(user);
+                        }
                     }
                 }
                 val resultUsersAdapter = ResultUsersAdapter(temp)
