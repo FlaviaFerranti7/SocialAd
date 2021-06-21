@@ -92,7 +92,8 @@
         android:textSize="@dimen/text"
         android:layout_marginLeft="@dimen/distance"
         android:layout_marginRight="@dimen/distance"
-        android:layout_marginTop="@dimen/distance"/>
+        android:layout_marginTop="@dimen/distance"
+        android:drawableLeft="@drawable/text"/>
     <TextView
         android:layout_below="@id/click_post_description"
         android:id="@+id/click_post_location"
@@ -102,7 +103,7 @@
         android:layout_marginLeft="@dimen/distance"
         android:layout_marginRight="@dimen/distance"
         android:textSize="@dimen/text"
-        android:textColor="@android:color/holo_blue_light"/>
+        android:drawableLeft="@drawable/location"/>
 
     <LinearLayout
         android:id="@+id/click_division"
@@ -123,6 +124,17 @@
         android:gravity="center">
 
         <Button
+            android:id="@+id/click_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/box_border"
+            android:layout_marginRight="@dimen/box_border"
+            android:background="@drawable/button"
+            android:text="  Edit text  "
+            android:textSize="@dimen/btn_text"
+            android:textStyle="bold" />
+
+        <Button
             android:id="@+id/change_place_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -132,17 +144,6 @@
             android:textSize="@dimen/btn_text"
             android:layout_marginRight="@dimen/distance"/>
 
-        <TextView
-            android:id="@+id/click_location_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/box_border"
-            android:layout_weight="1"
-            android:background="@drawable/inputs"
-            android:padding="@dimen/distance"
-            android:text="Your location"
-            android:textSize="@dimen/text"
-            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -158,19 +159,7 @@
         android:layout_marginRight="@dimen/distance"
         android:layout_marginTop="@dimen/distance">
 
-        <Button
-            android:id="@+id/click_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/click_post_description"
-            android:layout_marginLeft="@dimen/box_border"
-            android:layout_marginTop="@dimen/distance"
-            android:layout_marginRight="@dimen/box_border"
-            android:background="@drawable/button"
-            android:padding="@dimen/btn"
-            android:text="  Edit text  "
-            android:textSize="@dimen/btn_text"
-            android:textStyle="bold" />
+
 
         <Button
             android:id="@+id/click_delete"

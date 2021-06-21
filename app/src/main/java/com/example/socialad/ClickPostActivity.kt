@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
@@ -53,9 +54,7 @@ class ClickPostActivity : AppCompatActivity() {
 
         click_delete.visibility = View.INVISIBLE
         click_edit.visibility = View.INVISIBLE
-        click_post_location.visibility = View.INVISIBLE;
         change_place_btn.visibility = View.INVISIBLE
-        click_location_text.visibility = View.INVISIBLE
 
         if (!Places.isInitialized()) {
             Places.initialize(applicationContext, "AIzaSyBjopnsGwv8GcZBAvVoRv5Dqtu4yw4Q5R4");
@@ -77,7 +76,8 @@ class ClickPostActivity : AppCompatActivity() {
                     var databaseUserId = snapshot.child("uid").value.toString()
 
                     if(placename != ""){
-                        click_post_location.visibility = View.VISIBLE;
+                        click_post_location.text = placename;
+                        click_post_location.setTextColor(ContextCompat.getColor(this@ClickPostActivity, R.color.holo_blue_light));
                         click_post_location.setOnClickListener {
                             val intent = Intent(it.context, MapsActivity::class.java)
                             intent.putExtra("latitude", latitude)
@@ -87,7 +87,8 @@ class ClickPostActivity : AppCompatActivity() {
                         }
                     }
                     else{
-                        click_post_location.visibility = View.INVISIBLE;
+                        click_post_location.text = "No location available";
+                        click_post_location.setTextColor(ContextCompat.getColor(this@ClickPostActivity, R.color.gray));
                     }
 
                     Picasso.get().load(profileImage).placeholder(R.drawable.profile_img).into(click_post_profile_image);
@@ -98,12 +99,8 @@ class ClickPostActivity : AppCompatActivity() {
 
                     if(currentUserId.equals(databaseUserId)){
                         change_place_btn.visibility = View.VISIBLE
-                        click_location_text.visibility = View.VISIBLE
                         click_delete.visibility = View.VISIBLE
                         click_edit.visibility = View.VISIBLE
-                        if(placename != ""){
-                            click_location_text.text = placename
-                        }
                     }
 
                     change_place_btn.setOnClickListener{
@@ -151,9 +148,6 @@ class ClickPostActivity : AppCompatActivity() {
     }
 
     private fun ChangeLocation(place: String) {
-        if(place != "" ){
-            click_location_text.text = place
-        }
         // Set the fields to specify which types of place data to
         // return after the user has made a selection.
         val fields = listOf(Place.Field.LAT_LNG, Place.Field.NAME)
@@ -171,7 +165,6 @@ class ClickPostActivity : AppCompatActivity() {
                     data?.let {
                         val place = Autocomplete.getPlaceFromIntent(data)
                         Log.i(".Post", "Place: ${place.name}, ${place.latLng}")
-                        click_location_text.text = place.name
                         latitude = place.latLng?.latitude.toString()!!
                         longitude = place.latLng?.longitude.toString()!!
                         placename = place.name.toString()
@@ -179,7 +172,8 @@ class ClickPostActivity : AppCompatActivity() {
                         clickPostRef.child("place").setValue(placename);
                         clickPostRef.child("latitude").setValue(latitude);
                         clickPostRef.child("longitude").setValue(longitude)
-                        click_post_location.visibility = View.VISIBLE;
+                        click_post_location.text = placename;
+                        click_post_location.setTextColor(ContextCompat.getColor(this@ClickPostActivity, R.color.holo_blue_light));
                         Toast.makeText(this, "The location has been updated successfully", Toast.LENGTH_SHORT).show();
                     }
                 }

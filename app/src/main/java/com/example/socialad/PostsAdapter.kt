@@ -2,11 +2,13 @@ package com.example.socialad
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
@@ -46,7 +48,6 @@ class PostsAdapter(private val dataSet: MutableList<Posts>) : RecyclerView.Adapt
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.place.visibility = View.INVISIBLE;
 
         holder.description.text = dataSet[position].description;
         holder.date.text = "   " + dataSet[position].date
@@ -55,7 +56,8 @@ class PostsAdapter(private val dataSet: MutableList<Posts>) : RecyclerView.Adapt
         Picasso.get().load(dataSet[position].profileImage).placeholder(R.drawable.profile_img).into(holder.profileImage);
 
         if(dataSet[position].place!=""){
-            holder.place.visibility = View.VISIBLE;
+            holder.place.text = dataSet[position].place;
+            holder.place.setTextColor(ContextCompat.getColor(holder.place.context, R.color.holo_blue_light));
             holder.place.setOnClickListener {
                 val intent = Intent(it.context, MapsActivity::class.java)
                 intent.putExtra("latitude", dataSet[position].latitude)
@@ -65,7 +67,8 @@ class PostsAdapter(private val dataSet: MutableList<Posts>) : RecyclerView.Adapt
             }
         }
         else{
-            holder.place.visibility = View.INVISIBLE;
+            holder.place.text = "No location available";
+            holder.place.setTextColor(ContextCompat.getColor(holder.place.context, R.color.gray));
         }
 
         holder.itemView.setOnClickListener { v ->

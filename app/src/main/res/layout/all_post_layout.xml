@@ -90,17 +90,18 @@
             android:layout_marginRight="@dimen/border"
             android:padding="@dimen/border"
             android:textSize="@dimen/text"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+            android:drawableLeft="@drawable/text"/>
         <TextView
             android:id="@+id/post_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/location"
             android:text="Click here to view location"
             android:layout_marginLeft="@dimen/border"
             android:layout_marginRight="@dimen/border"
             android:padding="@dimen/border"
-            android:textSize="@dimen/text"
-            android:textColor="@android:color/holo_blue_light"/>
+            android:textSize="@dimen/text"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
