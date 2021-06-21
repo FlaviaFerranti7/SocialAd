@@ -1,17 +1,28 @@
 package com.example.socialad
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
-
+import android.util.Log
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import kotlin.math.sqrt
 import kotlin.properties.Delegates
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListener {
 
     private lateinit var mMap: GoogleMap
 
@@ -19,9 +30,27 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var longitude by Delegates.notNull<Double>()
     private lateinit var placename : String;
 
+    private var sensorManager: SensorManager? = null
+    private var sensor: Sensor? = null
+
+    private var running = false
+    private var previousTotalSteps = 0
+
+    private var stepCount = 0
+    private var MagnitudePrevious = 0.0
+
+    private lateinit var tv_stepsTaken : Button
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
+        
+        resetSteps()
+
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        sensor = sensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        tv_stepsTaken = findViewById<Button>(R.id.step_count)
 
         val extras = intent.extras
         if (extras != null) {
@@ -33,8 +62,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+
     }
 
+    override fun onResume() {
+        super.onResume()
+        running = true
+
+        if (sensor == null) {
+            Toast.makeText(this, "No sensor detected on this device", Toast.LENGTH_SHORT).show()
+        } else {
+            sensorManager?.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI)
+        }
+    }
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
@@ -44,4 +85,45 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.addMarker(MarkerOptions().position(location).title(placename))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
     }
+
+    fun resetSteps() {
+        tv_stepsTaken = findViewById<Button>(R.id.step_count)
+        tv_stepsTaken.setOnClickListener {
+            Toast.makeText(this, "Long tap to reset steps", Toast.LENGTH_SHORT).show()
+        }
+
+        tv_stepsTaken.setOnLongClickListener {
+
+            tv_stepsTaken.text = 0.toString()
+
+            // This will save the data
+
+            true
+        }
+    }
+
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        if (event != null) {
+            if (running) {
+                var x_acceleration = event.values[0];
+                var y_acceleration = event.values[1];
+                var z_acceleration = event.values[2];
+
+                var Magnitude = sqrt(x_acceleration * x_acceleration + y_acceleration * y_acceleration + z_acceleration * z_acceleration);
+                var MagnitudeDelta = Magnitude - MagnitudePrevious;
+                MagnitudePrevious = Magnitude.toDouble();
+
+                if (MagnitudeDelta > 2) {
+                    stepCount++;
+                }
+                tv_stepsTaken.text = "Steps: $stepCount";
+            }
+        }
+    }
+
 }
