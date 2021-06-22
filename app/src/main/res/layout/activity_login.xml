@@ -38,7 +38,8 @@
                 android:ems="10"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
-                android:padding="@dimen/text_field" />
+                android:padding="@dimen/text_field"
+                android:drawablePadding="@dimen/box_border"/>
 
             <EditText
                 android:id="@+id/login_psw_field"
@@ -52,7 +53,8 @@
                 android:ems="10"
                 android:hint="@string/psw"
                 android:inputType="textPassword"
-                android:padding="@dimen/text_field" />
+                android:padding="@dimen/text_field"
+                android:drawablePadding="@dimen/box_border"/>
 
             <Button
                 android:id="@+id/login_button"

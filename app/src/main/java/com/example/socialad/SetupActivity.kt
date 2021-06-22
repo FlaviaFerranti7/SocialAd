@@ -99,8 +99,6 @@ class SetupActivity : AppCompatActivity() {
         var username : String = setup_username.text.toString();
         var fullname : String = setup_name.text.toString();
         var city : String = setup_location.text.toString();
-        val radioButton : RadioButton = radiogroup.findViewById(radiogroup.checkedRadioButtonId)
-        var status = radioButton.text.toString()
 
         if(TextUtils.isEmpty(username)){
             Toast.makeText(this, "Please write your username", Toast.LENGTH_SHORT).show();
@@ -119,6 +117,9 @@ class SetupActivity : AppCompatActivity() {
             loadingBar.setMessage("Please wait while we are saving all your info");
             loadingBar.show();
             loadingBar.setCanceledOnTouchOutside(true);
+
+            val radioButton : RadioButton = radiogroup.findViewById(radiogroup.checkedRadioButtonId)
+            var status = radioButton.text.toString()
 
             var userMap = HashMap<String, Any>();
             userMap.put("username", username);

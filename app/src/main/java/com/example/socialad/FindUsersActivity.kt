@@ -31,7 +31,8 @@ class FindUsersActivity : AppCompatActivity() {
         allUserDatabaseRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users")
 
         find_btn.setOnClickListener {
-            val name = find_name.text.toString()
+            var name = find_name.text.toString()
+            name = name[0].toUpperCase()+name.substring(1)
             val city = find_city.text.toString()
             val status = find_status.text.toString()
             SearchUsers(name, city, status);
@@ -59,6 +60,9 @@ class FindUsersActivity : AppCompatActivity() {
                             temp.add(user);
                         }
                     }
+                }
+                if(temp.isEmpty()){
+                    Toast.makeText(this@FindUsersActivity, "No result found", Toast.LENGTH_SHORT).show();
                 }
                 val resultUsersAdapter = ResultUsersAdapter(temp)
                 find_result_list.adapter = resultUsersAdapter;

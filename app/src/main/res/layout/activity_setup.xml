@@ -39,7 +39,8 @@
                 android:gravity="start|top"
                 android:hint="@string/username"
                 android:inputType="textMultiLine"
-                android:padding="@dimen/text_field" />
+                android:padding="@dimen/text_field"
+                android:drawablePadding="@dimen/box_border"/>
 
             <EditText
                 android:id="@+id/setup_name"
@@ -54,7 +55,8 @@
                 android:gravity="start|top"
                 android:hint="@string/fullname"
                 android:inputType="textMultiLine"
-                android:padding="@dimen/text_field" />
+                android:padding="@dimen/text_field"
+                android:drawablePadding="@dimen/box_border"/>
 
             <EditText
                 android:id="@+id/setup_location"
@@ -69,7 +71,8 @@
                 android:gravity="start|top"
                 android:hint="@string/location"
                 android:inputType="textMultiLine"
-                android:padding="@dimen/text_field" />
+                android:padding="@dimen/text_field"
+                android:drawablePadding="@dimen/box_border"/>
 
             <TextView
                 android:layout_marginTop="@dimen/distance"

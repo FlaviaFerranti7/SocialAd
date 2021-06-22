@@ -7,8 +7,11 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -22,8 +25,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_find_users.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_post.*
 import kotlinx.android.synthetic.main.navigation_header.*
+import okhttp3.internal.Util
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,6 +47,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Utils.setupUI(main_layout,this);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.currentUser!!.uid;
@@ -116,6 +124,53 @@ class MainActivity : AppCompatActivity() {
         }
 
         DisplayAllUsersPost();
+
+        find_post_btn.setOnClickListener{
+            var tag = ""
+            if (find_post_radiogroup.checkedRadioButtonId != -1){
+                val radioButton : RadioButton = find_post_radiogroup.findViewById(find_post_radiogroup.checkedRadioButtonId)
+                tag = radioButton.text.toString()
+            }
+
+            val city = find_post_city.text.toString()
+            val content = find_post_content.text.toString()
+            SearchPost(tag, city, content);
+        }
+
+    }
+
+    private fun SearchPost(t:String, city :String, c : String) {
+        FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference
+                .child("Posts").orderByChild("type").startAt(t).endAt(t + "\uf8ff").addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                val temp: MutableList<Posts> = ArrayList()
+                if(!snapshot.hasChildren()){
+                    Toast.makeText(this@MainActivity, "No result found", Toast.LENGTH_SHORT).show();
+                }
+                for (ds in snapshot.children) {
+                    val post: Posts? = ds.getValue(Posts::class.java);
+                    if (post != null) {
+                        if((TextUtils.isEmpty(city) && TextUtils.isEmpty(c)) || (TextUtils.isEmpty(city) && !TextUtils.isEmpty(c) && post.description!!.contains(c, ignoreCase = true))
+                                || ( !TextUtils.isEmpty(city) && TextUtils.isEmpty(c) && post.city!!.contains(city, ignoreCase = true))
+                                || ( !TextUtils.isEmpty(city) && !TextUtils.isEmpty(c) && post.description!!.contains(c, ignoreCase = true) && post.city!!.contains(city, ignoreCase = true)) ) {
+                            temp.add(post);
+                        }
+                    }
+                }
+                if(temp.isEmpty()){
+                    Toast.makeText(this@MainActivity, "No result found", Toast.LENGTH_SHORT).show();
+                }
+                val postsAdapter = PostsAdapter(temp)
+                all_users_post_list.adapter = postsAdapter;
+
+            }
+
+        })
 
     }
 

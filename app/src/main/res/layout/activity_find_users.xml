@@ -40,7 +40,8 @@
                 android:hint="Search user name"
                 android:inputType="textMultiLine"
                 android:padding="@dimen/text_field"
-                app:drawableLeftCompat="@drawable/user"/>
+                app:drawableLeftCompat="@drawable/user"
+                android:drawablePadding="@dimen/box_border"/>
 
             <EditText
                 android:id="@+id/find_city"
@@ -53,7 +54,8 @@
                 android:hint="Search city"
                 android:inputType="textMultiLine"
                 android:padding="@dimen/text_field"
-                app:drawableLeftCompat="@drawable/location"/>
+                app:drawableLeftCompat="@drawable/location"
+                android:drawablePadding="@dimen/box_border"/>
 
             <EditText
                 android:id="@+id/find_status"
@@ -66,7 +68,8 @@
                 android:hint="Search status"
                 android:inputType="textMultiLine"
                 android:padding="@dimen/text_field"
-                app:drawableLeftCompat="@drawable/book"/>
+                app:drawableLeftCompat="@drawable/book"
+                android:drawablePadding="@dimen/box_border"/>
 
 
         </LinearLayout>
@@ -79,9 +82,7 @@
             android:layout_marginLeft="@dimen/distance"
             android:layout_marginTop="@dimen/distance"
             android:layout_marginRight="@dimen/distance"
-            android:layout_toEndOf="@id/find_city"
             android:background="@drawable/inputs"
-            android:backgroundTint="@color/black"
             android:src="@drawable/search" />
 
     </LinearLayout>
