@@ -210,7 +210,7 @@ class MainActivity : AppCompatActivity() {
 
         listener1 = usersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if (!dataSnapshot.hasChild(current_user_id)) {        //user authenticated but not present in database
+                if (!dataSnapshot.hasChild(current_user_id) || !dataSnapshot.child(current_user_id).child("fullname").exists()) {        //user authenticated but not present in database or only image saved
                     SendUserToSetupActivity();
                 } else {
                     listener2 = usersRef.child(currentUserId).addValueEventListener(object : ValueEventListener {

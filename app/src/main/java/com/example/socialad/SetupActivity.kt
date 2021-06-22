@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,10 @@ class SetupActivity : AppCompatActivity() {
     private lateinit var filePath : StorageReference;
 
     private lateinit var listener : ValueEventListener;
+
+    private lateinit var username : String;
+    private lateinit var fullname : String;
+    private lateinit var city : String;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,9 +101,9 @@ class SetupActivity : AppCompatActivity() {
     }
 
     private fun SaveAccountSetUpInformation() {
-        var username : String = setup_username.text.toString();
-        var fullname : String = setup_name.text.toString();
-        var city : String = setup_location.text.toString();
+        username = setup_username.text.toString();
+        fullname = setup_name.text.toString();
+        city = setup_location.text.toString();
 
         if(TextUtils.isEmpty(username)){
             Toast.makeText(this, "Please write your username", Toast.LENGTH_SHORT).show();
@@ -161,4 +166,5 @@ class SetupActivity : AppCompatActivity() {
             usersRef.removeEventListener(listener);
         }
     }
+
 }
