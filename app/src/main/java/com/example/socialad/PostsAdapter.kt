@@ -1,15 +1,21 @@
 package com.example.socialad
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Location
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.LocationServices
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -50,7 +56,7 @@ class PostsAdapter(private val dataSet: MutableList<Posts>) : RecyclerView.Adapt
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        
         holder.description.text = dataSet[position].description;
         holder.tag.text = dataSet[position].type;
         holder.date.text = "   " + dataSet[position].date

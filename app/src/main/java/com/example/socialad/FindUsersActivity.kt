@@ -32,7 +32,9 @@ class FindUsersActivity : AppCompatActivity() {
 
         find_btn.setOnClickListener {
             var name = find_name.text.toString()
-            name = name[0].toUpperCase()+name.substring(1)
+            if(!TextUtils.isEmpty(name)) {
+                name = name[0].toUpperCase() + name.substring(1)
+            }
             val city = find_city.text.toString()
             val status = find_status.text.toString()
             SearchUsers(name, city, status);
