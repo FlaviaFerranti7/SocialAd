@@ -11,6 +11,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Utils.setupUI(main_layout,this);
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.currentUser!!.uid;
@@ -134,7 +136,9 @@ class MainActivity : AppCompatActivity() {
 
             val city = find_post_city.text.toString()
             val content = find_post_content.text.toString()
-            SearchPost(tag, city, content);
+            if(!TextUtils.isEmpty(tag) || !TextUtils.isEmpty(city) || !TextUtils.isEmpty(content)) {
+                SearchPost(tag, city, content);
+            }
         }
 
     }

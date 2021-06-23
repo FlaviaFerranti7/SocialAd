@@ -2,12 +2,14 @@ package com.example.socialad
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_find_users.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class FindUsersActivity : AppCompatActivity() {
 
@@ -36,7 +38,11 @@ class FindUsersActivity : AppCompatActivity() {
                 name = name[0].toUpperCase() + name.substring(1)
             }
             val city = find_city.text.toString()
-            val status = find_status.text.toString()
+            var status = ""
+            if (find_user_radiogroup.checkedRadioButtonId != -1){
+                val radioButton : RadioButton = find_user_radiogroup.findViewById(find_user_radiogroup.checkedRadioButtonId)
+                status = radioButton.text.toString()
+            }
             SearchUsers(name, city, status);
         }
     }

@@ -93,19 +93,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         val loc = LatLng(latitude, longitude)
         mMap.addMarker(MarkerOptions().position(loc).title(placename))
 
-        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        //val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
         }
-        fusedLocationClient.lastLocation
+        /*fusedLocationClient.lastLocation
                 .addOnSuccessListener { location : Location? ->
                     currentlatitude = location!!.latitude
-                    currentlongitude = location!!.longitude
-                    Log.d(".maps", currentlatitude.toString() + " " + currentlongitude.toString())
+                    currentlongitude = location!!.longitude*/
+                    currentlatitude = 41.9560883
+                    currentlongitude = 12.5162212
 
                     val currentlocation = LatLng(currentlatitude, currentlongitude)
                     mMap.addMarker(MarkerOptions().position(currentlocation).title("Current location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
-                    Log.d(".maps", currentlocation.toString())
 
                     val options = PolylineOptions()
                     options.color(Color.RED)
@@ -158,16 +158,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                             val row = json.array<JsonObject>("rows")
                             val distance = row!!["elements"]["distance"]["text"][0] as String
                             val tokens = distance.split(" ");
-                            stepToMake = (tokens[0].toInt() * 1.609 * 1000).toInt()
+                            val value = tokens[0].toDouble()
+                            stepToMake = (value.toInt() * 1.609 * 1000).toInt()
                             step_to_make.text =  "T.Steps: $stepToMake";
 
                         }
                     }
 
 
-                }
+                //}
 
-        //mMap.setMyLocationEnabled(true);
     }
 
     private fun getURL(from : LatLng, to : LatLng) : String {

@@ -40,6 +40,33 @@
                         android:layout_marginTop="@dimen/distance"
                         android:orientation="vertical">
 
+                        <EditText
+                            android:id="@+id/find_post_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/distance"
+                            android:background="@drawable/inputs"
+                            android:drawablePadding="@dimen/box_border"
+                            android:ems="10"
+                            android:hint="Search by content"
+                            android:inputType="textMultiLine"
+                            android:padding="@dimen/text_field"
+                            app:drawableLeftCompat="@drawable/text" />
+
+                        <EditText
+                            android:id="@+id/find_post_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/distance"
+                            android:layout_marginTop="@dimen/distance"
+                            android:background="@drawable/inputs"
+                            android:ems="10"
+                            android:hint="Search by user city"
+                            android:inputType="textMultiLine"
+                            android:padding="@dimen/text_field"
+                            app:drawableLeftCompat="@drawable/location"
+                            android:drawablePadding="@dimen/box_border"/>
+
                         <LinearLayout
                             android:id="@+id/find_radio_layout"
                             android:layout_width="match_parent"
@@ -78,43 +105,15 @@
 
                         </LinearLayout>
 
-                        <EditText
-                            android:id="@+id/find_post_content"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/distance"
-                            android:layout_marginTop="@dimen/box_border"
-                            android:background="@drawable/inputs"
-                            android:ems="10"
-                            android:hint="Search by content"
-                            android:inputType="textMultiLine"
-                            android:padding="@dimen/text_field"
-                            app:drawableLeftCompat="@drawable/text"
-                            android:drawablePadding="@dimen/box_border"/>
-
-                        <EditText
-                            android:id="@+id/find_post_city"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/distance"
-                            android:layout_marginTop="@dimen/distance"
-                            android:background="@drawable/inputs"
-                            android:ems="10"
-                            android:hint="Search by user city"
-                            android:inputType="textMultiLine"
-                            android:padding="@dimen/text_field"
-                            app:drawableLeftCompat="@drawable/location"
-                            android:drawablePadding="@dimen/box_border"/>
-
                     </LinearLayout>
 
                     <ImageButton
                         android:id="@+id/find_post_btn"
                         android:layout_width="@dimen/clickable_icon"
-                        android:layout_height="@dimen/search_height"
+                        android:layout_height="140dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/distance"
-                        android:layout_marginTop="@dimen/distance"
+                        android:layout_marginTop="1dp"
                         android:layout_marginRight="@dimen/distance"
                         android:background="@drawable/inputs"
                         android:src="@drawable/search" />
