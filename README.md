@@ -6,15 +6,15 @@ The app is designed for multiple users that can share and see the contents of th
 
 <img src = "https://github.com/FlaviaFerranti7/SocialAd/blob/master/snapshots/setup.PNG" width="30%" height="50%">
 
-While customizing the account, a user can choose an avatar to be recognized by other still preserving privacy.
+While customizing the account, a user can choose an avatar to be recognized, still preserving some privacy.
 
 <img src = "https://github.com/FlaviaFerranti7/SocialAd/blob/master/snapshots/choose_avatar.PNG" width="30%" height="50%">
 
-Entering the app, it's possible to see the advertisement of the users and also search for them according to content, city or type (give or take lessons).
+Entering the app, it's possible to see the advertisement of the users and search for them according to content, city or type (give or take lessons).
 
 <img src = "https://github.com/FlaviaFerranti7/SocialAd/blob/master/snapshots/home.PNG" width="30%" height="50%">
 
-And whenever the location is available the Maps, Distance and Directions API of Google allows the user to see the location and the distance with respect to the current one. Furthermore a step counter is available to keep track of the distance covered.
+Whenever the location is available then the Maps, Distance and Directions API of Google allows the user to see the location and the distance with respect to the current one. Furthermore, a step counter is available to keep track of the distance covered.
 
 <img src = "https://github.com/FlaviaFerranti7/SocialAd/blob/master/snapshots/maps.PNG" width="30%" height="50%">
 
@@ -27,7 +27,7 @@ To search a specific user is possible to use the predefined form.
 <img src = "https://github.com/FlaviaFerranti7/SocialAd/blob/master/snapshots/menu.PNG" width="30%" height="50%">
 <img src = "https://github.com/FlaviaFerranti7/SocialAd/blob/master/snapshots/cerca_utente.PNG" width="30%" height="50%">
 
-Finally When a user find a profile of interest it can directly contact it by sending messages.
+Finally, when a user find a profile of interest he can directly contact it by sending messages.
 
 <img src = "https://github.com/FlaviaFerranti7/SocialAd/blob/master/snapshots/chat.PNG" width="30%" height="50%">
 
