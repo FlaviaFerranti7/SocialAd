@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.currentUser!!.uid;
-        usersRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users");
+        usersRef = FirebaseDatabase.getInstance().reference.child("Users");
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun SearchPost(t:String, city :String, c : String) {
-        FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference
+        FirebaseDatabase.getInstance().reference
                 .child("Posts").orderByChild("type").startAt(t).endAt(t + "\uf8ff").addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
 
@@ -179,7 +179,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun DisplayAllUsersPost() {
-        FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference
+        FirebaseDatabase.getInstance().reference
                 .child("Posts").addValueEventListener(object : ValueEventListener {
                     override fun onCancelled(error: DatabaseError) {
                     }

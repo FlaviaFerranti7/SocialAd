@@ -66,15 +66,15 @@ class PostActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.currentUser!!.uid;
-        usersRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users");
-        postsRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Posts");
+        usersRef = FirebaseDatabase.getInstance().reference.child("Users");
+        postsRef = FirebaseDatabase.getInstance().reference.child("Posts");
 
         saveCurrentTime = SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().time)
         saveCurrentDate = SimpleDateFormat("MM-dd-yyyy").format(Calendar.getInstance().time)
         postname = saveCurrentDate + saveCurrentTime
 
         if (!Places.isInitialized()) {
-            Places.initialize(applicationContext, "AIzaSyBjopnsGwv8GcZBAvVoRv5Dqtu4yw4Q5R4");
+            Places.initialize(applicationContext, "YOUR_KEY");
         }
 
         add_place_btn.setOnClickListener {

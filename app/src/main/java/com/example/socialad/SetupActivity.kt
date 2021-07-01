@@ -42,7 +42,7 @@ class SetupActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.currentUser?.uid.toString();
-        usersRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users").child(currentUserId);
+        usersRef = FirebaseDatabase.getInstance().reference.child("Users").child(currentUserId);
 
         val extras = intent.extras
         if (extras != null) {                               //avatar has been created

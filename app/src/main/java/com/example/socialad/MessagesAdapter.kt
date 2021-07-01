@@ -46,7 +46,7 @@ class MessagesAdapter (private val dataSet: MutableList<Messages>) : RecyclerVie
         val messageSenderId = mAuth.currentUser!!.uid
         val fromUserId = dataSet[position].from
 
-        usersRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users").child(fromUserId!!);
+        usersRef = FirebaseDatabase.getInstance().reference.child("Users").child(fromUserId!!);
         usersRef.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
 

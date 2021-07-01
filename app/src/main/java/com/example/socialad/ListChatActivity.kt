@@ -29,7 +29,7 @@ class ListChatActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance();
         currentId = mAuth.currentUser!!.uid
-        rootRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference
+        rootRef = FirebaseDatabase.getInstance().reference
 
         list_chat.setHasFixedSize(true);
         val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this);

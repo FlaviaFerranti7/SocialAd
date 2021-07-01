@@ -52,8 +52,8 @@ class SettingsActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.uid!!;
-        settingsUserRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users").child(currentUserId)
-        postUserRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Posts")
+        settingsUserRef = FirebaseDatabase.getInstance().reference.child("Users").child(currentUserId)
+        postUserRef = FirebaseDatabase.getInstance().reference.child("Posts")
 
         settingsUserRef.addValueEventListener(object: ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
@@ -115,7 +115,7 @@ class SettingsActivity : AppCompatActivity() {
                         val u = uri.toString()
                         settingsUserRef.child("profileImage").setValue(u).addOnCompleteListener {
                             if(it.isSuccessful){
-                                var postsQuery = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/") //update the post of the users
+                                var postsQuery = FirebaseDatabase.getInstance() //update the post of the users
                                     .getReference("Posts").orderByChild("uid").equalTo(currentUserId).addChildEventListener(object : ChildEventListener{
                                         override fun onCancelled(error: DatabaseError) {
                                         }
@@ -221,7 +221,7 @@ class SettingsActivity : AppCompatActivity() {
 
         settingsUserRef.updateChildren(userMap).addOnCompleteListener {
             if(it.isSuccessful){
-                var postsQuery = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/") //update the post of the users (changing name)
+                var postsQuery = FirebaseDatabase.getInstance() //update the post of the users (changing name)
                     .getReference("Posts").orderByChild("uid").equalTo(currentUserId).addChildEventListener(object : ChildEventListener{
                         override fun onCancelled(error: DatabaseError) {
                         }

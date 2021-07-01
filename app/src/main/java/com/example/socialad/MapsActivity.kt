@@ -93,16 +93,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         val loc = LatLng(latitude, longitude)
         mMap.addMarker(MarkerOptions().position(loc).title(placename))
 
-        //val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return
         }
-        /*fusedLocationClient.lastLocation
+        fusedLocationClient.lastLocation
                 .addOnSuccessListener { location : Location? ->
                     currentlatitude = location!!.latitude
-                    currentlongitude = location!!.longitude*/
-                    currentlatitude = 41.9560883
-                    currentlongitude = 12.5162212
+                    currentlongitude = location!!.longitude
 
                     val currentlocation = LatLng(currentlatitude, currentlongitude)
                     mMap.addMarker(MarkerOptions().position(currentlocation).title("Current location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)))
@@ -166,14 +164,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                     }
 
 
-                //}
+                }
 
     }
 
     private fun getURL(from : LatLng, to : LatLng) : String {
         val origin = "origin=" + from.latitude + "," + from.longitude
         val dest = "destination=" + to.latitude + "," + to.longitude
-        val sensor = "key=AIzaSyDyzSbBxN2UIK-bGeJXFg8_mFp84IDrnYA"
+        val sensor = "key=YOUR_KEY"
         val params = "$origin&$dest&$sensor"
         return "https://maps.googleapis.com/maps/api/directions/json?$params"
     }
@@ -181,7 +179,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private fun getURLDistance(from : LatLng, to : LatLng) : String {
         val origin = "origins=" + from.latitude + "," + from.longitude
         val dest = "destinations=" + to.latitude + "," + to.longitude
-        val sensor = "key=AIzaSyDyzSbBxN2UIK-bGeJXFg8_mFp84IDrnYA"
+        val sensor = "key=YOUR_KEY"
         val params = "$origin&$dest&$sensor"
         return "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&$params"
     }

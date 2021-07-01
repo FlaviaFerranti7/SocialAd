@@ -30,7 +30,7 @@ class FindUsersActivity : AppCompatActivity() {
         val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this);
         find_result_list.layoutManager = linearLayoutManager;
 
-        allUserDatabaseRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users")
+        allUserDatabaseRef = FirebaseDatabase.getInstance().reference.child("Users")
 
         find_btn.setOnClickListener {
             var name = find_name.text.toString()

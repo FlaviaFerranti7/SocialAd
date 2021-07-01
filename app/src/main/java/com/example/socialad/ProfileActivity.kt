@@ -36,7 +36,7 @@ class ProfileActivity : AppCompatActivity() {
             user = mAuth.uid!!
         }
 
-        profileUserRef = FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Users").child(user)
+        profileUserRef = FirebaseDatabase.getInstance().reference.child("Users").child(user)
 
         profileUserRef.addValueEventListener(object: ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
@@ -71,7 +71,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun DisplayAllUserPost() {
 
-        FirebaseDatabase.getInstance("https://socialad-78b0e-default-rtdb.firebaseio.com/").reference.child("Posts")
+        FirebaseDatabase.getInstance().reference.child("Posts")
                 .orderByChild("uid").equalTo(user).addValueEventListener(object : ValueEventListener{
                     override fun onCancelled(error: DatabaseError) {
                     }
